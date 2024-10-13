@@ -34,6 +34,14 @@ k8s-labels-migrator:
     - kubernetes
     - labels
 
+proxmox-sdk:
+  description: "About Opiniated and abtracted Typescript SDK for Proxmox."
+  topics:
+    - "proxmox"
+    - "typescript"
+    - "sdk"
+    - "npm"
+
 repo-config:
   description: "My configuration as code of my Github repositories."
   topics:
