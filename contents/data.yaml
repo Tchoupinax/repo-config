@@ -1,5 +1,6 @@
 fuzzy-engine :
   description: "Docker registry UI made with love."
+  homepage: "https://fuzzy-engine.corentinfiloche.xyz"
   topics:
     - "docker"
     - "docker-registry"

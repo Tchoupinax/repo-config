@@ -5,9 +5,10 @@ locals {
 resource "github_repository" "repositories" {
   for_each = local.repositories
 
-  name        = each.key
-  description = each.value.description
-  topics      = each.value.topics
+  name         = each.key
+  description  = each.value.description
+  topics       = each.value.topics
+  homepage_url = try(each.value.homepage, null)
 
   visibility      = "public"
   has_issues      = true
