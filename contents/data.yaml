@@ -7,6 +7,17 @@ fuzzy-engine :
     - "ui"
     - "ecr"
 
+helm-viewer:
+  description: "Quick tool to easily view your helm charts."
+  homepage: "https://helm-viewer.vercel.app"
+  topics:
+    - "charts"
+    - "helm"
+    - "helm-charts"
+    - "kubernetes"
+    - "templates"
+    - "yaml"
+
 repo-config:
   description: "My configuration as code of my Github repositories."
   topics:

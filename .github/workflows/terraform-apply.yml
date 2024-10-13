@@ -6,6 +6,8 @@ on:
       - master
     paths:
       - "*.tf"
+      - "contents/data.yaml"
+      - "contents/renovate.json"
 
 jobs:
   plan:
