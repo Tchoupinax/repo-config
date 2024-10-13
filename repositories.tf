@@ -68,7 +68,7 @@ resource "github_actions_repository_permissions" "this" {
   allowed_actions = "selected"
   allowed_actions_config {
     github_owned_allowed = true
-    patterns_allowed     = ["ahmadnassri/action-terraform-report"]
+    patterns_allowed     = ["ahmadnassri/action-terraform-report@*"]
     verified_allowed     = true
   }
 }
