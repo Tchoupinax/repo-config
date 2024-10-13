@@ -23,6 +23,10 @@ jobs:
           -backend-config="bucket=${{ secrets.SCW_BUCKET_NAME }}"
 
     - id: plan
+      env:
+        # GITHUB_TOKEN is the default provided token
+        # and TOKEN_GITHUB is mine with required permissions
+        GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
       run: terraform plan -no-color
 
     - uses: actions/github-script@v7
