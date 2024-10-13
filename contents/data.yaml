@@ -5,3 +5,11 @@ repo-config:
     - "iac"
     - "github"
     - "repositories"
+
+s3-prometheus-exporter:
+  description: "A simple configurable S3 exporter metrics for prometheus. Useful to track your backups."
+  topics:
+    - "metrics"
+    - "s3"
+    - "s3-exporter"
+    - "prometheus-exporter"
