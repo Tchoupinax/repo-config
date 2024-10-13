@@ -18,6 +18,16 @@ helm-viewer:
     - "templates"
     - "yaml"
 
+k8s-labels-migrator:
+  description: "Your favorite tool to migrate labels on your deployments without any downtime."
+  topics:
+    - cloud
+    - deployment
+    - k3s
+    - k8s
+    - kubernetes
+    - labels
+
 repo-config:
   description: "My configuration as code of my Github repositories."
   topics:
