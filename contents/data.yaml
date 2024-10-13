@@ -1,3 +1,11 @@
+fuzzy-engine :
+  description: "Docker registry UI made with love."
+  topics:
+    - "docker"
+    - "docker-registry"
+    - "ui"
+    - "ecr"
+
 repo-config:
   description: "My configuration as code of my Github repositories."
   topics:
