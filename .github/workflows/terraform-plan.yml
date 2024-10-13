@@ -5,6 +5,8 @@ on:
     branches: ["*"]
     paths:
       - "*.tf"
+      - "contents/data.yaml"
+      - "contents/renovate.json"
 
 jobs:
   plan:
