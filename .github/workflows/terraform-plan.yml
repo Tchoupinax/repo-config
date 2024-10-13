@@ -1,0 +1,16 @@
+name: Terraform plan
+
+on:
+  pull_request:
+
+jobs:
+  plan:
+    name: 'Plan terraform'
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: "1.9"
