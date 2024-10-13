@@ -1,6 +1,8 @@
 name: Terraform plan
+
 on:
   pull_request:
+    branches: ["*"]
 
 jobs:
   plan:
