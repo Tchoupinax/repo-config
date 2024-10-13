@@ -1,14 +1,15 @@
 name: Terraform plan
 
 on:
-  pull_request:
-    branches: ["*"]
+  push:
+    branches:
+      - master
     paths:
       - "*.tf"
 
 jobs:
   plan:
-    name: 'Plan terraform'
+    name: 'Apply changes'
     runs-on: ubuntu-latest
 
     steps:
@@ -29,14 +30,4 @@ jobs:
         # GITHUB_TOKEN is the default provided token
         # and TOKEN_GITHUB is mine with required permissions
         GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-      run: terraform plan -no-color -out terraform.plan
-
-    - run: terraform show -no-color terraform.plan > terraform.text
-    - run: terraform show -json terraform.plan > terraform.json
-    # https://github.com/marketplace/actions/terraform-pull-request-report-generator
-    - uses: ahmadnassri/action-terraform-report@v4
-      with:
-        terraform-text: ${{ github.workspace }}/terraform.text
-        terraform-json: ${{ github.workspace }}/terraform.json
-        remove-stale-reports: true
-        github-token: ${{ secrets.TOKEN_GITHUB }}
+      run: terraform apply --auto-approve
