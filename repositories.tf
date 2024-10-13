@@ -59,3 +59,16 @@ resource "github_repository_file" "renovate_json" {
   file                = "renovate.json"
   overwrite_on_create = true
 }
+
+resource "github_actions_repository_permissions" "this" {
+  for_each = github_repository.repositories
+
+  repository = each.value.name
+
+  allowed_actions = "selected"
+  allowed_actions_config {
+    github_owned_allowed = true
+    patterns_allowed     = []
+    verified_allowed     = true
+  }
+}
