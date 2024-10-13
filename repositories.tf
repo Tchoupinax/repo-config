@@ -27,24 +27,19 @@ resource "github_repository" "repositories" {
   delete_branch_on_merge = true
 }
 
-#resource "github_branch_protection" "this" {
-#  for_each = github_repository.repositories
+resource "github_branch_protection" "this" {
+  for_each = github_repository.repositories
 
-#  repository_id = each.value.name
+  repository_id = each.value.name
 
-#  pattern          = "master"
-#  enforce_admins   = true
-#  allows_deletions = false
+  pattern          = "master"
+  enforce_admins   = true
+  allows_deletions = false
 
-#  #required_pull_request_reviews {
-#  #  dismiss_stale_reviews      = true
-#  #  require_code_owner_reviews = true
-#  #}
-
-#  required_status_checks {
-#    strict = true
-#  }
-#}
+  required_status_checks {
+    strict = false
+  }
+}
 
 resource "github_repository_file" "renovate_json" {
   for_each = github_repository.repositories
