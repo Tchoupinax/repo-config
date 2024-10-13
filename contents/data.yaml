@@ -1,4 +1,10 @@
-fuzzy-engine :
+check-git:
+  description: "CLI to easily check which local repositories have uncommitted changes."
+  topics:
+    - "git"
+    - "cli"
+
+fuzzy-engine:
   description: "Docker registry UI made with love."
   homepage: "https://fuzzy-engine.corentinfiloche.xyz"
   topics:
