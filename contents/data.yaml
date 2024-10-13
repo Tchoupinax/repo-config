@@ -1,4 +1,10 @@
-fuzzy-engine :
+check-git:
+  description: "CLI to easily check which local repositories have uncommitted changes."
+  topics:
+    - "git"
+    - "cli"
+
+fuzzy-engine:
   description: "Docker registry UI made with love."
   homepage: "https://fuzzy-engine.corentinfiloche.xyz"
   topics:
@@ -17,6 +23,24 @@ helm-viewer:
     - "kubernetes"
     - "templates"
     - "yaml"
+
+k8s-labels-migrator:
+  description: "Your favorite tool to migrate labels on your deployments without any downtime."
+  topics:
+    - cloud
+    - deployment
+    - k3s
+    - k8s
+    - kubernetes
+    - labels
+
+proxmox-sdk:
+  description: "About Opiniated and abtracted Typescript SDK for Proxmox."
+  topics:
+    - "proxmox"
+    - "typescript"
+    - "sdk"
+    - "npm"
 
 repo-config:
   description: "My configuration as code of my Github repositories."
