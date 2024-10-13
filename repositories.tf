@@ -11,19 +11,18 @@ resource "github_repository" "repositories" {
   homepage_url = try(each.value.homepage, null)
 
   visibility      = "public"
-  has_issues      = true
   has_discussions = false
+  has_downloads   = false
+  has_issues      = true
   has_projects    = false
   has_wiki        = false
-  has_downloads   = false
   is_template     = false
 
-  allow_merge_commit = false
-  allow_auto_merge   = true
-  allow_rebase_merge = true
-  allow_squash_merge = true
-  archive_on_destroy = true
-
+  allow_auto_merge       = true
+  allow_merge_commit     = false
+  allow_rebase_merge     = false
+  allow_squash_merge     = true
+  archive_on_destroy     = true
   auto_init              = true
   delete_branch_on_merge = true
 }
