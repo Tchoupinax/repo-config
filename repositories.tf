@@ -25,6 +25,17 @@ resource "github_repository" "repositories" {
   archive_on_destroy     = true
   auto_init              = true
   delete_branch_on_merge = true
+
+  dynamic pages {
+    for_each = try(each.value.page, false) ? [1] : []
+
+    content {
+      source {
+        branch = "gh-pages"
+        path   = "/" 
+      }
+    }
+  }
 }
 
 resource "github_branch_protection" "this" {

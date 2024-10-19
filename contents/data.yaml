@@ -64,3 +64,4 @@ skopeo-operator:
     - "skopeo"
     - "docker"
     - "image"
+  page: true
