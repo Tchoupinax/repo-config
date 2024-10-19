@@ -57,3 +57,10 @@ s3-prometheus-exporter:
     - "s3"
     - "s3-exporter"
     - "prometheus-exporter"
+
+skopeo-operator:
+  description: "Skopeo operator to copy Docker images from your Kubernetes cluster."
+  topics:
+    - "skopeo"
+    - "docker"
+    - "image"
