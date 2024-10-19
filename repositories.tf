@@ -26,13 +26,13 @@ resource "github_repository" "repositories" {
   auto_init              = true
   delete_branch_on_merge = true
 
-  dynamic pages {
+  dynamic "pages" {
     for_each = try(each.value.page, false) ? [1] : []
 
     content {
       source {
         branch = "gh-pages"
-        path   = "/" 
+        path   = "/"
       }
     }
   }
@@ -74,7 +74,7 @@ resource "github_actions_repository_permissions" "this" {
   allowed_actions = "selected"
   allowed_actions_config {
     github_owned_allowed = true
-    patterns_allowed     = ["ahmadnassri/action-terraform-report@*"]
+    patterns_allowed     = ["ahmadnassri/action-terraform-report@*", "stefanprodan/helm-gh-pages@v1.7.0"]
     verified_allowed     = true
   }
 }
