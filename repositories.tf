@@ -74,7 +74,12 @@ resource "github_actions_repository_permissions" "this" {
   allowed_actions = "selected"
   allowed_actions_config {
     github_owned_allowed = true
-    patterns_allowed     = ["ahmadnassri/action-terraform-report@*", "stefanprodan/helm-gh-pages@v1.7.0"]
-    verified_allowed     = true
+    patterns_allowed = [
+      "ahmadnassri/action-terraform-report@*",
+      "helm/chart-testing-action@*",
+      "helm/kind-action@*",
+      "stefanprodan/helm-gh-pages@*",
+    ]
+    verified_allowed = true
   }
 }
