@@ -13,6 +13,7 @@ jobs:
   plan:
     name: "Apply changes"
     runs-on: ubuntu-latest
+    permissions: write-all
 
     steps:
       - uses: actions/checkout@v4
@@ -27,5 +28,5 @@ jobs:
 
       - id: plan
         env:
-          github-token: ${{ secrets.TOKEN_GITHUB }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
         run: terraform apply --auto-approve
