@@ -66,4 +66,3 @@ image-operator:
     - "docker"
     - "image"
     - "skopeo"
-  page: true
