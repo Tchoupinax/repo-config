@@ -26,7 +26,7 @@ jobs:
 
       - id: plan
         env:
-          github-token: ${{ secrets.TOKEN_GITHUB }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
         run: terraform plan -no-color -out terraform.plan
 
       - run: terraform show -no-color terraform.plan > terraform.text
