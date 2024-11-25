@@ -11,23 +11,21 @@ on:
 
 jobs:
   plan:
-    name: 'Apply changes'
+    name: "Apply changes"
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - uses: hashicorp/setup-terraform@v3
+      - uses: hashicorp/setup-terraform@v3
 
-    - run: |
-        terraform init \
-          -backend-config="access_key=${{ secrets.SCW_ACCESS_KEY }}" \
-          -backend-config="secret_key=${{ secrets.SCW_SECRET_KEY }}" \
-          -backend-config="bucket=${{ secrets.SCW_BUCKET_NAME }}"
+      - run: |
+          terraform init \
+            -backend-config="access_key=${{ secrets.SCW_ACCESS_KEY }}" \
+            -backend-config="secret_key=${{ secrets.SCW_SECRET_KEY }}" \
+            -backend-config="bucket=${{ secrets.SCW_BUCKET_NAME }}"
 
-    - id: plan
-      env:
-        # GITHUB_TOKEN is the default provided token
-        # and TOKEN_GITHUB is mine with required permissions
-        GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-      run: terraform apply --auto-approve
+      - id: plan
+        env:
+          github-token: ${{ secrets.TOKEN_GITHUB }}
+        run: terraform apply --auto-approve
