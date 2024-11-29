@@ -1,2 +1,2 @@
 [tools]
-terraform = "1.10.0"
+terraform = "latest"
