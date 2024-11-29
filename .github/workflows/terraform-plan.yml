@@ -13,8 +13,7 @@ jobs:
   plan:
     name: "Plan terraform"
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
+    permissions: write-all
 
     steps:
       - uses: actions/create-github-app-token@v1
@@ -37,7 +36,7 @@ jobs:
 
       - id: plan
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: terraform plan -no-color -out terraform.plan
 
       - run: terraform show -no-color terraform.plan > terraform.text
