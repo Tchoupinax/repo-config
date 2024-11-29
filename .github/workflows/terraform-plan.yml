@@ -35,7 +35,7 @@ jobs:
 
       - id: plan
         env:
-          GITHUB_TOKEN: ${{ secrets.TTOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: TF_LOG=trace terraform plan -no-color -out terraform.plan
 
       - run: terraform show -no-color terraform.plan > terraform.text
