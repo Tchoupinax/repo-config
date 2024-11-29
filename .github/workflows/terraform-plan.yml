@@ -13,7 +13,6 @@ jobs:
   plan:
     name: "Plan terraform"
     runs-on: ubuntu-latest
-    permissions: write-all
 
     steps:
       - uses: actions/create-github-app-token@v1
