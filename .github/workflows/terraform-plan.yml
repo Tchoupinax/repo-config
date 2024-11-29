@@ -12,7 +12,6 @@ jobs:
   plan:
     name: "Plan terraform"
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/create-github-app-token@v1
         id: app-token
