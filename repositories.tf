@@ -76,8 +76,10 @@ resource "github_actions_repository_permissions" "this" {
     github_owned_allowed = true
     patterns_allowed = [
       "ahmadnassri/action-terraform-report@*",
+      "fuxingloh/multi-labeler@*",
       "helm/chart-testing-action@*",
       "helm/kind-action@*",
+      "release-drafter/release-drafter@*",
       "stefanprodan/helm-gh-pages@*",
     ]
     verified_allowed = true
