@@ -24,6 +24,16 @@ helm-viewer:
     - "templates"
     - "yaml"
 
+image-operator:
+  description: "Image operator allow to copy and build image from your Kubernetes cluster."
+  topics:
+    - "buildah"
+    - "crd"
+    - "docker"
+    - "image"
+    - "skopeo"
+  page: true
+
 k8s-labels-migrator:
   description: "Your favorite tool to migrate labels on your deployments without any downtime."
   topics:
@@ -33,6 +43,13 @@ k8s-labels-migrator:
     - k8s
     - kubernetes
     - labels
+
+network-inventory:
+  description: "Webapp to visualize your network easily. Detect conflicts, bad networks and others..."
+  topics:
+    - "homelab"
+    - "infrastructure"
+    - "network"
 
 proxmox-sdk:
   description: "About Opiniated and abtracted Typescript SDK for Proxmox."
@@ -57,13 +74,3 @@ s3-prometheus-exporter:
     - "s3"
     - "s3-exporter"
     - "prometheus-exporter"
-
-image-operator:
-  description: "Image operator allow to copy and build image from your Kubernetes cluster."
-  topics:
-    - "buildah"
-    - "crd"
-    - "docker"
-    - "image"
-    - "skopeo"
-  page: true
