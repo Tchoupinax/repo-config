@@ -71,17 +71,18 @@ resource "github_actions_repository_permissions" "this" {
 
   repository = each.value.name
 
-  allowed_actions = "selected"
-  allowed_actions_config {
-    github_owned_allowed = true
-    patterns_allowed = [
-      "ahmadnassri/action-terraform-report@*",
-      "fuxingloh/multi-labeler@*",
-      "helm/chart-testing-action@*",
-      "helm/kind-action@*",
-      "release-drafter/release-drafter@*",
-      "stefanprodan/helm-gh-pages@*",
-    ]
-    verified_allowed = true
-  }
+  allowed_actions = "all"
+  # allowed_actions = "selected"
+  # allowed_actions_config {
+  #   github_owned_allowed = true
+  #   patterns_allowed = [
+  #     "ahmadnassri/action-terraform-report@*",
+  #     "fuxingloh/multi-labeler@*",
+  #     "helm/chart-testing-action@*",
+  #     "helm/kind-action@*",
+  #     "release-drafter/release-drafter@*",
+  #     "stefanprodan/helm-gh-pages@*",
+  #   ]
+  #   verified_allowed = true
+  # }
 }
