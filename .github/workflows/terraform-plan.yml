@@ -22,7 +22,7 @@ jobs:
           private-key: ${{ secrets.DEPLOY_APP_KEY }}
           owner: ${{ github.repository_owner }}
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: hashicorp/setup-terraform@v3
 
