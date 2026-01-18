@@ -12,7 +12,6 @@ resource "github_repository" "repositories" {
 
   visibility      = "public"
   has_discussions = false
-  has_downloads   = false
   has_issues      = true
   has_projects    = false
   has_wiki        = false
