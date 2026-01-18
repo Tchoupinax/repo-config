@@ -25,7 +25,7 @@ helm-viewer:
     - "yaml"
 
 image-operator:
-  description: "Image operator allow to copy and build image from your Kubernetes cluster."
+  description: "Image operator allow to copy and build image from your Kubernetes cluster. Autodetect unknown image on the fly"
   topics:
     - "buildah"
     - "crd"
@@ -74,3 +74,10 @@ s3-prometheus-exporter:
     - "s3"
     - "s3-exporter"
     - "prometheus-exporter"
+
+s3-viewer:
+  description: "A web app to explorer multiple buckets accross several accounts and providers."
+  topics:
+    - "s3"
+    - "viewer"
+    - "explorer"
