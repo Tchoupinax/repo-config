@@ -34,6 +34,14 @@ image-operator:
     - "skopeo"
   page: true
 
+k8s-images-manager:
+  description: "Explore downloaded container images inside your Kubernetes cluster."
+  topics:
+    - images
+    - k3s
+    - k8s
+    - kubernetes
+
 k8s-labels-migrator:
   description: "Your favorite tool to migrate labels on your deployments without any downtime."
   topics:
