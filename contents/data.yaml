@@ -89,3 +89,10 @@ s3-viewer:
     - "s3"
     - "viewer"
     - "explorer"
+
+timelord:
+  description: "Next generation of cron orchestrator. Centralized, friendly, powerful."
+  topics:
+    - "cron"
+    - "backups"
+    - "tasks"
