@@ -1,6 +1,7 @@
 name: Terraform apply
 
 on:
+  workflow_dispatch: 
   push:
     branches:
       - master
