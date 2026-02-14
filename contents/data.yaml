@@ -34,6 +34,13 @@ image-operator:
     - "skopeo"
   page: true
 
+git-branch:
+  description: "Local tool to easily switch and view your git branches"
+  topics:
+    - "cli"
+    - "git"
+    - "golang"
+
 k8s-images-manager:
   description: "Explore downloaded container images inside your Kubernetes cluster."
   topics:
@@ -89,6 +96,11 @@ s3-viewer:
     - "s3"
     - "viewer"
     - "explorer"
+
+ssh-list:
+  description: "Cross platform tools to display your registered ssh connections"
+  topics:
+    - "ssh"
 
 timelord:
   description: "Next generation of cron orchestrator. Centralized, friendly, powerful."
