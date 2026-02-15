@@ -18,10 +18,10 @@ jobs:
         with:
           filters: |
             tf_files:
-              - *.tf
-              - contents/data.yaml
-              - contents/renovate.json
-              - modules/*.tf
+              - ./*.tf
+              - ./contents/data.yaml
+              - ./contents/renovate.json
+              - ./modules/*.tf
 
       - if: steps.filter.outputs.tf_files == 'false'
         name: Skip (no Terraform files changed)
