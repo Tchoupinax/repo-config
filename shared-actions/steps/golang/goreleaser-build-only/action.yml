@@ -18,10 +18,10 @@ runs:
       with:
         filters: |
           go_files:
-            - main.go
-            - src/**/*.go
-            - cmd/**/*.go
-            - internal/**/*.go
+            - ${{ inputs.working-directory }}/main.go
+            - ${{ inputs.working-directory }}/src/**/*.go
+            - ${{ inputs.working-directory }}/cmd/**/*.go
+            - ${{ inputs.working-directory }}/internal/**/*.go
 
     - if: steps.filter.outputs.go_files == 'false'
       name: Skip (no Go files changed)
