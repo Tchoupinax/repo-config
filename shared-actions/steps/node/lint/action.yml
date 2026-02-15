@@ -10,6 +10,10 @@ inputs:
     required: false
     default: "lint"
     description: "Specify what is the command to lint"
+  throwOnError:
+    required: false
+    default: "true"
+    description: "Set to false if error should be silenced"
 
 runs:
   using: "composite"
@@ -38,5 +42,5 @@ runs:
       shell: bash
 
     - name: Lint source code
-      run: nr ${{ inputs.command }}
+      run: nr ${{ inputs.command }} ${{ inputs.throwOnError == 'false' && '|| true' || '' }}
       shell: bash
