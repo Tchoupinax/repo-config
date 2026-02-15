@@ -72,8 +72,6 @@ jobs:
   labels:
     name: Autodetect labels 🔍 
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
 
     steps:
       - name: Clone repository
