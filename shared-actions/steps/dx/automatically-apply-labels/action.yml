@@ -25,5 +25,5 @@ runs:
     # https://github.com/fuxingloh/multi-labeler
     - name: labels
       uses: fuxingloh/multi-labeler@v4
-      env:
+      with:
         github-token: ${{ steps.app-token.outputs.token }}
