@@ -2,12 +2,6 @@ name: Terraform plan
 
 on:
   pull_request:
-    branches: ["*"]
-
-    #paths:
-    #  - "*.tf"
-    #  - "contents/data.yaml"
-    #  - "contents/renovate.json"
 
 jobs:
   plan:
@@ -15,34 +9,62 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/create-github-app-token@v2
+      - name: Clone repository
+        uses: actions/checkout@v6
+
+      - name: Check if changes occured
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            tf_files:
+              - ./*.tf
+              - ./contents/data.yaml
+              - ./contents/renovate.json
+              - ./modules/*.tf
+
+      - if: steps.filter.outputs.tf_files == 'false'
+        name: Skip (no Terraform files changed)
+        run: |
+          echo "### ✅ Plan Skipped" >> $GITHUB_STEP_SUMMARY
+          echo "No Terraform files changed." >> $GITHUB_STEP_SUMMARY
+        shell: bash
+
+      - if: steps.filter.outputs.tf_files == 'true'
+        uses: actions/create-github-app-token@v2
         id: app-token
         with:
           app-id: ${{ secrets.DEPLOY_APP_ID }}
           private-key: ${{ secrets.DEPLOY_APP_KEY }}
-          owner: ${{ github.repository_owner }}
 
-      - uses: actions/checkout@v6
+      - if: steps.filter.outputs.tf_files == 'true'
+        uses: hashicorp/setup-terraform@v3
 
-      - uses: hashicorp/setup-terraform@v3
-
-      - run: |
+      - if: steps.filter.outputs.tf_files == 'true'
+        run: |
           terraform init \
             -backend-config="access_key=${{ secrets.SCW_ACCESS_KEY }}" \
             -backend-config="secret_key=${{ secrets.SCW_SECRET_KEY }}" \
             -backend-config="bucket=${{ secrets.SCW_BUCKET_NAME }}"
 
-      - id: plan
+      - if: steps.filter.outputs.tf_files == 'true'
+        name: Perform plan
+        id: plan
         env:
           GITHUB_TOKEN: ${{ secrets.TTOKEN }}
         run: terraform plan -no-color -out terraform.plan
 
-      - run: terraform show -no-color terraform.plan > terraform.text
-      - run: terraform show -json terraform.plan > terraform.json
+      - if: steps.filter.outputs.tf_files == 'true'
+        run: terraform show -no-color terraform.plan > terraform.text
+
+      - if: steps.filter.outputs.tf_files == 'true'
+        run: terraform show -json terraform.plan > terraform.json
+
       # https://github.com/marketplace/actions/terraform-pull-request-report-generator
-      - uses: ahmadnassri/action-terraform-report@v4
+      - if: steps.filter.outputs.tf_files == 'true'
+        uses: ahmadnassri/action-terraform-report@v4
         with:
-          terraform-text: ${{ github.workspace }}/terraform.text
-          terraform-json: ${{ github.workspace }}/terraform.json
-          remove-stale-reports: true
           github-token: ${{ steps.app-token.outputs.token }}
+          remove-stale-reports: true
+          terraform-json: ${{ github.workspace }}/terraform.json
+          terraform-text: ${{ github.workspace }}/terraform.text

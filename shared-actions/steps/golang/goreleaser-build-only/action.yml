@@ -1,6 +1,12 @@
 name: "Build Go binary with Goreleaser"
 description: "This only build, it's for checking purpose on pull request"
 
+inputs:
+  workingDirectory:
+    default: "."
+    required: false
+    description: "Directory containing go.mod and .goreleaser (default repo root)"
+
 runs:
   using: "composite"
   steps:
@@ -12,10 +18,10 @@ runs:
       with:
         filters: |
           go_files:
-            - main.go
-            - src/**/*.go
-            - cmd/**/*.go
-            - internal/**/*.go
+            - ${{ inputs.workingDirectory }}/main.go
+            - ${{ inputs.workingDirectory }}/src/**/*.go
+            - ${{ inputs.workingDirectory }}/cmd/**/*.go
+            - ${{ inputs.workingDirectory }}/internal/**/*.go
 
     - if: steps.filter.outputs.go_files == 'false'
       name: Skip (no Go files changed)
@@ -27,6 +33,7 @@ runs:
     - if: steps.filter.outputs.go_files == 'true'
       name: "Use Golang version of the project"
       id: vars
+      working-directory: ${{ inputs.workingDirectory }}
       run: |
         echo "go_version=$(cat go.mod | head -3 | tail -1 | cut -d ' ' -f 2)" >> $GITHUB_OUTPUT
         echo "Using Go version $(cat go.mod | head -3 | tail -1 | cut -d ' ' -f 2)"
@@ -44,3 +51,4 @@ runs:
       with:
         version: "~> v2"
         args: "build --clean --snapshot"
+        workdir: ${{ inputs.workingDirectory }}
