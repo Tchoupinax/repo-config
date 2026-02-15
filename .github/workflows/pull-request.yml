@@ -73,7 +73,6 @@ jobs:
     name: Autodetect labels 🔍 
     runs-on: ubuntu-latest
     permissions:
-      issues: write
       pull-requests: write
 
     steps:
