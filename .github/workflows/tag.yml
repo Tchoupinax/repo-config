@@ -2,7 +2,7 @@ name: Update major tag
 on:
   push:
     tags:
-      - "v*"
+      - "v*.*.*"
 
 jobs:
   major-tag:
