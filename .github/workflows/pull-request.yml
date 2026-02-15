@@ -77,7 +77,7 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v6
 
-      - name: Autodetect labels2 🔍 
+      - name: Autodetect labels 🔍 
         uses: ./shared-actions/steps/dx/automatically-apply-labels
         with:
           appId: ${{ secrets.DEPLOY_APP_ID }}
