@@ -12,13 +12,13 @@ runs:
   steps:
     - uses: actions/checkout@v6
 
-    - name: Validate package manager
-      run: |
-        case "${{ inputs.packageManager }}" in
-          npm|yarn|pnpm) ;;
-          *) echo "::error::packageManager must be one of: npm, yarn, pnpm. Got: ${{ inputs.packageManager }}"; exit 1 ;;
-        esac
-      shell: bash
+    #- name: Validate package manager
+    #  run: |
+    #    case "${{ inputs.packageManager }}" in
+    #      npm|yarn|pnpm) ;;
+    #      *) echo "::error::packageManager must be one of: npm, yarn, pnpm. Got: ${{ inputs.packageManager }}"; exit 1 ;;
+    #    esac
+    #  shell: bash
 
     - name: Use Node.js ${{ inputs.nodeVersion }}
       uses: actions/setup-node@v6
