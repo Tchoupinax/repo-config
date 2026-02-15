@@ -72,6 +72,10 @@ jobs:
   labels:
     name: Autodetect labels 🔍 
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+
     steps:
       - name: Clone repository
         uses: actions/checkout@v6
