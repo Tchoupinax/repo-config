@@ -26,5 +26,6 @@ runs:
     - name: labels
       uses: fuxingloh/multi-labeler@v4
       with:
-        config-path: ./labeler.yml
+        config-path: shared-actions/steps/dx/automatically-apply-labels/labeler.yml
         github-token: ${{ steps.app-token.outputs.token }}
+        config-repo: Tchoupinax/repo-config
