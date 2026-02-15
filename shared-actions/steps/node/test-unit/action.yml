@@ -6,6 +6,10 @@ inputs:
     required: false
     default: "25"
     description: "Node.js version to use"
+  command:
+    required: false
+    default: "tests"
+    description: "Specify what is the command to run tests"
 
 runs:
   using: "composite"
@@ -34,5 +38,5 @@ runs:
       shell: bash
 
     - name: Run unit tests
-      run: nr tests
+      run: nr ${{ inputs.command }}
       shell: bash

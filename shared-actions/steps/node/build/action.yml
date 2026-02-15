@@ -6,6 +6,10 @@ inputs:
     required: false
     default: "25"
     description: "Node.js version to use"
+  command:
+    required: false
+    default: "build"
+    description: "Specify what is the command to build"
 
 runs:
   using: "composite"
@@ -34,5 +38,5 @@ runs:
       shell: bash
 
     - name: Build applications
-      run: nr build
+      run: nr ${{ inputs.command }}
       shell: bash
