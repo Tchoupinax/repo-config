@@ -26,4 +26,5 @@ runs:
     - name: labels
       uses: fuxingloh/multi-labeler@v4
       with:
+        config-path: ./labeler.yml
         github-token: ${{ steps.app-token.outputs.token }}
