@@ -1,4 +1,4 @@
-name: "Check code quality"
+name: "Check code quality for Golang application"
 description: "This uses golanci for this goal"
 
 runs:

@@ -1,5 +1,5 @@
-name: "Build Node.js application"
-description: "This allow to build your Node.js application"
+name: "Check code quality for Node.js application"
+description: "This run lint command for Node.js application"
 
 inputs:
   nodeVersion:
@@ -8,8 +8,8 @@ inputs:
     description: "Node.js version to use"
   command:
     required: false
-    default: "build"
-    description: "Specify what is the command to build"
+    default: "lint"
+    description: "Specify what is the command to lint"
 
 runs:
   using: "composite"
@@ -37,6 +37,6 @@ runs:
       run: ni
       shell: bash
 
-    - name: Build applications
+    - name: Lint source code
       run: nr ${{ inputs.command }}
       shell: bash
