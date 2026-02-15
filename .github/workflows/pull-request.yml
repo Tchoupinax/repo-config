@@ -73,6 +73,7 @@ jobs:
     name: Autodetect labels 🔍 
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v6
       - name: Autodetect labels 🔍 
         uses: ./shared-actions/steps/dx/automatically-apply-labels
         with:
