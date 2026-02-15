@@ -47,8 +47,8 @@ runs:
 
     - if: steps.filter.outputs.go_files == 'true'
       name: Compile the source
-      working-directory: ${{ inputs.working-directory }}
       uses: goreleaser/goreleaser-action@v6
       with:
         version: "~> v2"
         args: "build --clean --snapshot"
+        working-directory: ${{ inputs.working-directory }}
