@@ -1,0 +1,5 @@
+{
+  "yaml.schemas": {
+    "https://www.schemastore.org/github-action.json": "file:///Users/corentin/Documents/repo-config/shared-actions/node-test/action.yml"
+  }
+}

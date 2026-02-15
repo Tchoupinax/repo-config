@@ -1,0 +1,27 @@
+name: "Update brew registry"
+description: "When releasing a package that can be installed with brew, update the version and the hash in the registry on Github"
+
+inputs:
+  patToken:
+    required: true
+    description: PAT for your Github account
+  repositoryName:
+    required: false
+    default: "Tchoupinax/homebrew-brew"
+    description: "<owner>/<repo_name> of your registry on Github"
+  formulaPath:
+    required: true
+    description: "Path of your fomrmula inside the repository"
+
+runs:
+  using: "composite"
+  steps:
+    # Documentation here
+    # https://github.com/mislav/bump-homebrew-formula-action?tab=readme-ov-file#action-inputs
+    - uses: mislav/bump-homebrew-formula-action@v3
+      with:
+        commit-message: "feat({{formulaName}}): publish version {{version}} 🤖"
+        formula-path: ${{ inputs.formulaPath }}
+        homebrew-tap: ${{ inputs.repositoryName }}
+      env:
+        COMMITTER_TOKEN: ${{ inputs.patToken }}
