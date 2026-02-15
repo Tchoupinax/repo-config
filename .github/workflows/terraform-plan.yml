@@ -30,32 +30,39 @@ jobs:
           echo "No Terraform files changed." >> $GITHUB_STEP_SUMMARY
         shell: bash
 
-      - uses: actions/create-github-app-token@v2
+      - if: steps.filter.outputs.tf_files == 'true'
+        uses: actions/create-github-app-token@v2
         id: app-token
         with:
           app-id: ${{ secrets.DEPLOY_APP_ID }}
           private-key: ${{ secrets.DEPLOY_APP_KEY }}
 
-      - uses: hashicorp/setup-terraform@v3
+      - if: steps.filter.outputs.tf_files == 'true'
+        uses: hashicorp/setup-terraform@v3
 
-      - run: |
+      - if: steps.filter.outputs.tf_files == 'true'
+        run: |
           terraform init \
             -backend-config="access_key=${{ secrets.SCW_ACCESS_KEY }}" \
             -backend-config="secret_key=${{ secrets.SCW_SECRET_KEY }}" \
             -backend-config="bucket=${{ secrets.SCW_BUCKET_NAME }}"
 
-      - name: Perform plan
+      - if: steps.filter.outputs.tf_files == 'true'
+        name: Perform plan
         id: plan
         env:
           GITHUB_TOKEN: ${{ secrets.TTOKEN }}
         run: terraform plan -no-color -out terraform.plan
 
-      - run: terraform show -no-color terraform.plan > terraform.text
+      - if: steps.filter.outputs.tf_files == 'true'
+        run: terraform show -no-color terraform.plan > terraform.text
 
-      - run: terraform show -json terraform.plan > terraform.json
+      - if: steps.filter.outputs.tf_files == 'true'
+        run: terraform show -json terraform.plan > terraform.json
 
       # https://github.com/marketplace/actions/terraform-pull-request-report-generator
-      - uses: ahmadnassri/action-terraform-report@v4
+      - if: steps.filter.outputs.tf_files == 'true'
+        uses: ahmadnassri/action-terraform-report@v4
         with:
           github-token: ${{ steps.app-token.outputs.token }}
           remove-stale-reports: true

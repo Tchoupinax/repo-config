@@ -33,15 +33,18 @@ jobs:
           echo "No Terraform files changed." >> $GITHUB_STEP_SUMMARY
         shell: bash
 
-      - uses: hashicorp/setup-terraform@v3
+      - if: steps.filter.outputs.tf_files == 'true'
+        uses: hashicorp/setup-terraform@v3
 
-      - run: |
+      - if: steps.filter.outputs.tf_files == 'true'
+        run: |
           terraform init \
             -backend-config="access_key=${{ secrets.SCW_ACCESS_KEY }}" \
             -backend-config="secret_key=${{ secrets.SCW_SECRET_KEY }}" \
             -backend-config="bucket=${{ secrets.SCW_BUCKET_NAME }}"
 
-      - name: Perform apply
+      - if: steps.filter.outputs.tf_files == 'true'
+        name: Perform apply
         id: plan
         env:
           GITHUB_TOKEN: ${{ secrets.TTOKEN }}
