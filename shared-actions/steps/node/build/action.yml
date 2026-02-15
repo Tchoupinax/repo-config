@@ -1,5 +1,5 @@
-name: "Unit test with Node.js application"
-description: "This allow to run test for your Node.js application"
+name: "Build Node.js application"
+description: "This allow to build your Node.js application"
 
 inputs:
   nodeVersion:
@@ -30,9 +30,9 @@ runs:
       shell: bash
 
     - name: Install dependencies
-      run: ni
+      run: npm install
       shell: bash
 
-    - name: Run unit tests
-      run: nr tests
+    - name: Build applications
+      run: nr build
       shell: bash
