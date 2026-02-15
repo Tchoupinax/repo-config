@@ -1,0 +1,42 @@
+name: "Unit test with Node.js application"
+description: "This allow to run test for your Node.js application"
+
+inputs:
+  nodeVersion:
+    required: false
+    default: "25"
+    description: "Node.js version to use"
+  command:
+    required: false
+    default: "tests"
+    description: "Specify what is the command to run tests"
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v6
+
+    #- name: Validate package manager
+    #  run: |
+    #    case "${{ inputs.packageManager }}" in
+    #      npm|yarn|pnpm) ;;
+    #      *) echo "::error::packageManager must be one of: npm, yarn, pnpm. Got: ${{ inputs.packageManager }}"; exit 1 ;;
+    #    esac
+    #  shell: bash
+
+    - name: Use Node.js ${{ inputs.nodeVersion }}
+      uses: actions/setup-node@v6
+      with:
+        node-version: ${{ inputs.nodeVersion }}
+
+    - name: Install package manager handler
+      run: npm i -g @antfu/ni --force
+      shell: bash
+
+    - name: Install dependencies
+      run: ni
+      shell: bash
+
+    - name: Run unit tests
+      run: nr ${{ inputs.command }}
+      shell: bash
