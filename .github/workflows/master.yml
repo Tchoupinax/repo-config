@@ -10,6 +10,7 @@ jobs:
     name: Run release draft to extract labels ☕️
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v6
       - name: Run release draft to extract labels ☕️
         uses: ./shared-actions/steps/dx/automatically-apply-labels
         with:
