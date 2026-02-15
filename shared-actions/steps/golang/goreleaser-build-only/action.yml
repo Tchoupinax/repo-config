@@ -51,4 +51,4 @@ runs:
       with:
         version: "~> v2"
         args: "build --clean --snapshot"
-        working-directory: ${{ inputs.workingDirectory }}
+        workdir: ${{ inputs.workingDirectory }}
