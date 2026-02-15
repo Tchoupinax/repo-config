@@ -1,0 +1,22 @@
+name: Code quality (golangci)
+
+on:
+  pull_request:
+    branches: ["*"]
+
+jobs:
+  lint:
+    name: "Check code quality"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            go_src:
+              - "src/**/*.go"
+
+      - if: steps.filter.outputs.go_src == 'true'
+        uses: ./shared-actions/golang/golangci

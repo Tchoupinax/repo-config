@@ -1,0 +1,25 @@
+name: "Pull request flow for Golang project"
+description: "This is my standard pipeline for pull request on Golang project"
+
+inputs:
+  appId:
+    required: true
+    description: ID of the Github app
+  privateKey:
+    required: true
+    description: Private key of the Github app
+
+runs:
+  using: "composite"
+  steps:
+    - name: Check code quality 🫆
+      uses: tchoupinax/repo-config/shared-actions/golang/golangci@abded2407e798f8ccead69057d2d33a3b87635ef
+
+    - name: Check build success 🦫
+      uses: tchoupinax/repo-config/shared-actions/golang/goreleaser-build-only@abded2407e798f8ccead69057d2d33a3b87635ef
+
+    - name: Autodetect labels 🔍
+      uses: tchoupinax/repo-config/shared-actions/dx/automatically-apply-labels@abded2407e798f8ccead69057d2d33a3b87635ef
+      with:
+        app-id: ${{ inputs.appId }}
+        private-key: ${{ inputs.privateKey }}
