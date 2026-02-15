@@ -22,3 +22,4 @@ jobs:
         uses: actions/publish-action@v0.4.0
         with:
           source-tag: ${{ github.ref_name }}
+          token: ${{ steps.app-token.outputs.token }}
