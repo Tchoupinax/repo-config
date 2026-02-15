@@ -20,6 +20,7 @@ runs:
       with:
         app-id: ${{ inputs.appId }}
         private-key: ${{ inputs.privateKey }}
+        owner: ${{ github.repository_owner }}
 
     # https://github.com/fuxingloh/multi-labeler
     - name: labels
