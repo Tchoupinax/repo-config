@@ -74,6 +74,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Clone repository
+        uses: actions/checkout@v6
+
       - name: Autodetect labels 🔍 
         uses: ./shared-actions/steps/dx/automatically-apply-labels
         with:
