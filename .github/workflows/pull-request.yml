@@ -2,6 +2,11 @@ name: Terraform plan 🔎
 
 on:
   pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - labeled
 
 jobs:
   plan:

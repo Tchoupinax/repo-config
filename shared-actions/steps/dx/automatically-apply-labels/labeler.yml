@@ -1,7 +1,7 @@
 # Semver labels (major, minor, patch) are mutually exclusive by design:
-# - major: BREAKING / ! / BREAKING CHANGE in title, body, or commits
-# - minor: title starts with "feat" and does not contain BREAKING
-# - patch: title starts with "fix" and does not contain BREAKING
+# - major: BREAKING or ! in title, body, or commits
+# - minor: title starts with "feat" and does not contain BREAKING or !
+# - patch: title starts with "fix" and does not contain BREAKING or !
 # Only one semver label is applied per PR.
 
 version: v1
@@ -9,14 +9,14 @@ labels:
   - label: "semver:major"
     sync: true
     matcher:
-      title: ".*(BREAKING|BREAKING CHANGE|!).*"
-      body: ".*(BREAKING|BREAKING CHANGE).*"
-      commits: ".*(BREAKING|BREAKING CHANGE|^feat!|^fix!).*"
+      title: ".*(BREAKING|!).*"
+      body: ".*BREAKING.*"
+      commits: ".*(BREAKING|^feat!|^fix!).*"
 
   - label: "semver:minor"
     sync: true
     matcher:
-      title: "^feat(?!.*(BREAKING|BREAKING CHANGE|!)).*"
+      title: "^feat(?!.*(BREAKING|!)).*"
       files:
         any: ["internal/*", "graphql/**", "cmd/**"]
         count:
@@ -26,7 +26,7 @@ labels:
   - label: "semver:patch"
     sync: true
     matcher:
-      title: "^fix(?!.*(BREAKING|BREAKING CHANGE|!)).*"
+      title: "^fix(?!.*(BREAKING|!)).*"
 
   - label: "maintenance"
     sync: true
