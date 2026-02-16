@@ -11,13 +11,13 @@ on:
 
 jobs:
   autodetect-labels:
-    name: "_o"
+    name: Autodetect labels 🔍 
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
         uses: actions/checkout@v6
 
-      - name: Autodetect labels 🔍 
+      - name: Run autodetection
         uses: ./shared-actions/steps/dx/automatically-apply-labels
         with:
           appId: ${{ secrets.DEPLOY_APP_ID }}
