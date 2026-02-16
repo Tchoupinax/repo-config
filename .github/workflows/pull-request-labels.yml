@@ -11,7 +11,7 @@ on:
 
 jobs:
   autodetect-labels:
-    name: " "
+    name: " "
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
