@@ -2,12 +2,6 @@ name: Terraform plan 🔎
 
 on:
   pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
-      - labeled
-      - unlabeled
 
 jobs:
   plan:
@@ -74,6 +68,18 @@ jobs:
           remove-stale-reports: true
           terraform-json: ${{ github.workspace }}/terraform.json
           terraform-text: ${{ github.workspace }}/terraform.text
+
+---
+name: Terraform plan2 🔎
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - labeled
+      - unlabeled
 
   labels:
     name: Autodetect labels 🔍 
