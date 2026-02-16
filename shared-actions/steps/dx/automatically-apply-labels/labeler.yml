@@ -1,14 +1,22 @@
+# Semver labels (major, minor, patch) are mutually exclusive by design:
+# - major: BREAKING / ! / BREAKING CHANGE in title, body, or commits
+# - minor: title starts with "feat" and does not contain BREAKING
+# - patch: title starts with "fix" and does not contain BREAKING
+# Only one semver label is applied per PR.
+
 version: v1
 labels:
   - label: "semver:major"
-    sync: true # remove label if match failed, default: false
+    sync: true
     matcher:
-      title: ".*BREAKING.*"
+      title: ".*(BREAKING|BREAKING CHANGE|!).*"
+      body: ".*(BREAKING|BREAKING CHANGE).*"
+      commits: ".*(BREAKING|BREAKING CHANGE|^feat!|^fix!).*"
 
   - label: "semver:minor"
-    sync: true # remove label if match failed, default: false
+    sync: true
     matcher:
-      title: "^feat(?!.*BREAKING).*"
+      title: "^feat(?!.*(BREAKING|BREAKING CHANGE|!)).*"
       files:
         any: ["internal/*", "graphql/**", "cmd/**"]
         count:
@@ -16,37 +24,59 @@ labels:
           lte: 1000
 
   - label: "semver:patch"
-    sync: true # remove label if match failed, default: false
+    sync: true
     matcher:
-      title: "^fix(?!.*BREAKING).*"
+      title: "^fix(?!.*(BREAKING|BREAKING CHANGE|!)).*"
 
   - label: "maintenance"
-    sync: true # remove label if match failed, default: false
+    sync: true
     matcher:
       files:
         any:
           - "package.json"
+          - "package-lock.json"
+          - "yarn.lock"
+          - "pnpm-lock.yaml"
+          - "renovate.json"
+          - "go.sum"
 
   - label: "CI/CD"
-    sync: true # remove label if match failed, default: false
+    sync: true
     matcher:
       files:
         any:
           - ".github/**"
 
   - label: "docs"
-    sync: true # remove label if match failed, default: false
+    sync: true
     matcher:
       files:
         any:
           - "**/*.md"
 
   - label: "helm-chart"
-    sync: true # remove label if match failed, default: false
+    sync: true
     matcher:
       files:
         any:
           - "charts/**"
+
+  - label: "terraform"
+    sync: true
+    matcher:
+      files:
+        any:
+          - "**/*.tf"
+
+  - label: "dependencies"
+    sync: true
+    matcher:
+      files:
+        any:
+          - "go.mod"
+          - "go.sum"
+          - "package.json"
+          - "renovate.json"
 
 checks:
   - context: "Ready to merge"
