@@ -1,4 +1,4 @@
-name: Terraform plan 🔎
+name: Pull request checks 🔎
 
 on:
   pull_request:
@@ -69,16 +69,3 @@ jobs:
           terraform-json: ${{ github.workspace }}/terraform.json
           terraform-text: ${{ github.workspace }}/terraform.text
 
-  labels:
-    name: Autodetect labels 🔍 
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Clone repository
-        uses: actions/checkout@v6
-
-      - name: Autodetect labels 🔍 
-        uses: ./shared-actions/steps/dx/automatically-apply-labels
-        with:
-          appId: ${{ secrets.DEPLOY_APP_ID }}
-          privateKey: ${{ secrets.DEPLOY_APP_KEY }}
