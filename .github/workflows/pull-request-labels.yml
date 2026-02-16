@@ -6,8 +6,9 @@ on:
       - opened
       - synchronize
       - reopened
-      - labeled
-      - unlabeled
+      # If unlabeled is enabled, it will prevent from manually remove the label x)
+      #- labeled
+      #- unlabeled
 
 jobs:
   autodetect-labels:
