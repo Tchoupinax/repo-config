@@ -47,7 +47,7 @@ runs:
 
   - if: steps.filter.outputs.go_files == 'true'
     name: Compile the source
-    uses: goreleaser/goreleaser-action@v6
+    uses: goreleaser/goreleaser-action@v7
     with:
       version: "~> v2"
       args: "build --clean --snapshot"
