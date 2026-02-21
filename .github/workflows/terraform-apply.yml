@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
+    - master
 
 jobs:
   plan:
@@ -12,40 +12,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clone repository
-        uses: actions/checkout@v6
+    - name: Clone repository
+      uses: actions/checkout@v6
 
-      - name: Check if changes occured
-        uses: dorny/paths-filter@v3
-        id: filter
-        with:
-          filters: |
-            tf_files:
-              - ./*.tf
-              - ./contents/data.yaml
-              - ./contents/renovate.json
-              - ./modules/*.tf
+    - name: Check if changes occured
+      uses: dorny/paths-filter@v3
+      id: filter
+      with:
+        filters: |
+          tf_files:
+            - ./*.tf
+            - ./contents/data.yaml
+            - ./contents/renovate.json
+            - ./modules/*.tf
 
-      - if: steps.filter.outputs.tf_files == 'false'
-        name: Skip (no Terraform files changed)
-        run: |
-          echo "### ✅ Plan Skipped" >> $GITHUB_STEP_SUMMARY
-          echo "No Terraform files changed." >> $GITHUB_STEP_SUMMARY
-        shell: bash
+    - if: steps.filter.outputs.tf_files == 'false'
+      name: Skip (no Terraform files changed)
+      run: |
+        echo "### ✅ Plan Skipped" >> $GITHUB_STEP_SUMMARY
+        echo "No Terraform files changed." >> $GITHUB_STEP_SUMMARY
+      shell: bash
 
-      - if: steps.filter.outputs.tf_files == 'true'
-        uses: hashicorp/setup-terraform@v3
+    - if: steps.filter.outputs.tf_files == 'true'
+      uses: hashicorp/setup-terraform@v3
 
-      - if: steps.filter.outputs.tf_files == 'true'
-        run: |
-          terraform init \
-            -backend-config="access_key=${{ secrets.SCW_ACCESS_KEY }}" \
-            -backend-config="secret_key=${{ secrets.SCW_SECRET_KEY }}" \
-            -backend-config="bucket=${{ secrets.SCW_BUCKET_NAME }}"
+    - if: steps.filter.outputs.tf_files == 'true'
+      run: |
+        terraform init \
+          -backend-config="access_key=${{ secrets.SCW_ACCESS_KEY }}" \
+          -backend-config="secret_key=${{ secrets.SCW_SECRET_KEY }}" \
+          -backend-config="bucket=${{ secrets.SCW_BUCKET_NAME }}"
 
-      - if: steps.filter.outputs.tf_files == 'true'
-        name: Perform apply
-        id: plan
-        env:
-          GITHUB_TOKEN: ${{ secrets.TTOKEN }}
-        run: terraform apply --auto-approve
+    - if: steps.filter.outputs.tf_files == 'true'
+      name: Perform apply
+      id: plan
+      env:
+        GITHUB_TOKEN: ${{ secrets.TTOKEN }}
+      run: terraform apply --auto-approve

@@ -12,28 +12,28 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Clone repository
-      uses: actions/checkout@v6
+  - name: Clone repository
+    uses: actions/checkout@v6
 
-    - uses: actions/create-github-app-token@v2
-      id: app-token
-      with:
-        app-id: ${{ inputs.appId }}
-        private-key: ${{ inputs.privateKey }}
-        owner: ${{ github.repository_owner }}
+  - uses: actions/create-github-app-token@v2
+    id: app-token
+    with:
+      app-id: ${{ inputs.appId }}
+      private-key: ${{ inputs.privateKey }}
+      owner: ${{ github.repository_owner }}
 
-    # Replaced by my own implementation
-    # https://github.com/fuxingloh/multi-labeler
-    #- name: labels
-    #  uses: fuxingloh/multi-labeler@v4
-    #  with:
-    #    config-path: shared-actions/steps/dx/automatically-apply-labels/labeler.yml
-    #    github-token: ${{ steps.app-token.outputs.token }}
-    #    config-repo: Tchoupinax/repo-config
+  # Replaced by my own implementation
+  # https://github.com/fuxingloh/multi-labeler
+  #- name: labels
+  #  uses: fuxingloh/multi-labeler@v4
+  #  with:
+  #    config-path: shared-actions/steps/dx/automatically-apply-labels/labeler.yml
+  #    github-token: ${{ steps.app-token.outputs.token }}
+  #    config-repo: Tchoupinax/repo-config
 
-    - name: labels
-      uses: Tchoupinax/pull-request-labeler@v0
-      with:
-        config-path: shared-actions/steps/dx/automatically-apply-labels/pull-request-labeler.yml
-        github-token: ${{ steps.app-token.outputs.token }}
-        config-repo: Tchoupinax/repo-config
+  - name: labels
+    uses: Tchoupinax/pull-request-labeler@v0
+    with:
+      config-path: shared-actions/steps/dx/automatically-apply-labels/pull-request-labeler.yml
+      github-token: ${{ steps.app-token.outputs.token }}
+      config-repo: Tchoupinax/repo-config

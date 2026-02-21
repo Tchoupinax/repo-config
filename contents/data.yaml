@@ -1,116 +1,116 @@
 check-git:
   description: "CLI to easily check which local repositories have uncommitted changes."
   topics:
-    - "git"
-    - "cli"
+  - "git"
+  - "cli"
 
 fuzzy-engine:
   description: "Docker registry UI made with love."
   homepage: "https://fuzzy-engine.corentinfiloche.xyz"
   topics:
-    - "docker"
-    - "docker-registry"
-    - "ui"
-    - "ecr"
+  - "docker"
+  - "docker-registry"
+  - "ui"
+  - "ecr"
 
 helm-viewer:
   description: "Quick tool to easily view your helm charts."
   homepage: "https://helm-viewer.vercel.app"
   topics:
-    - "charts"
-    - "helm"
-    - "helm-charts"
-    - "kubernetes"
-    - "templates"
-    - "yaml"
+  - "charts"
+  - "helm"
+  - "helm-charts"
+  - "kubernetes"
+  - "templates"
+  - "yaml"
 
 image-operator:
   description: "Image operator allow to copy and build image from your Kubernetes cluster. Autodetect unknown image on the fly"
   topics:
-    - "buildah"
-    - "crd"
-    - "docker"
-    - "image"
-    - "skopeo"
+  - "buildah"
+  - "crd"
+  - "docker"
+  - "image"
+  - "skopeo"
   page: true
 
 git-branch:
   description: "Local tool to easily switch and view your git branches"
   topics:
-    - "cli"
-    - "git"
-    - "golang"
+  - "cli"
+  - "git"
+  - "golang"
 
 k8s-images-manager:
   description: "Explore downloaded container images inside your Kubernetes cluster."
   topics:
-    - images
-    - k3s
-    - k8s
-    - kubernetes
+  - images
+  - k3s
+  - k8s
+  - kubernetes
 
 k8s-labels-migrator:
   description: "Your favorite tool to migrate labels on your deployments without any downtime."
   topics:
-    - cloud
-    - deployment
-    - k3s
-    - k8s
-    - kubernetes
-    - labels
+  - cloud
+  - deployment
+  - k3s
+  - k8s
+  - kubernetes
+  - labels
 
 network-inventory:
   description: "Webapp to visualize your network easily. Detect conflicts, bad networks and others..."
   topics:
-    - "homelab"
-    - "infrastructure"
-    - "network"
+  - "homelab"
+  - "infrastructure"
+  - "network"
 
 proxmox-sdk:
   description: "About Opiniated and abtracted Typescript SDK for Proxmox."
   topics:
-    - "proxmox"
-    - "typescript"
-    - "sdk"
-    - "npm"
+  - "proxmox"
+  - "typescript"
+  - "sdk"
+  - "npm"
 
 pull-request-labeler:
   description: "Smartly label your pull-requests according custom and specific rules"
   topics:
-    - "github-actions"
-    - "label"
+  - "github-actions"
+  - "label"
 
 repo-config:
   description: "My configuration as code of my Github repositories."
   topics:
-    - "terraform"
-    - "iac"
-    - "github"
-    - "repositories"
+  - "terraform"
+  - "iac"
+  - "github"
+  - "repositories"
 
 s3-prometheus-exporter:
   description: "A simple configurable S3 exporter metrics for prometheus. Useful to track your backups."
   topics:
-    - "metrics"
-    - "s3"
-    - "s3-exporter"
-    - "prometheus-exporter"
+  - "metrics"
+  - "s3"
+  - "s3-exporter"
+  - "prometheus-exporter"
 
 s3-viewer:
   description: "A web app to explorer multiple buckets accross several accounts and providers."
   topics:
-    - "s3"
-    - "viewer"
-    - "explorer"
+  - "s3"
+  - "viewer"
+  - "explorer"
 
 ssh-list:
   description: "Cross platform tools to display your registered ssh connections"
   topics:
-    - "ssh"
+  - "ssh"
 
 timelord:
   description: "Next generation of cron orchestrator. Centralized, friendly, powerful."
   topics:
-    - "cron"
-    - "backups"
-    - "tasks"
+  - "cron"
+  - "backups"
+  - "tasks"

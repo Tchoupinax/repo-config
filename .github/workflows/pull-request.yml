@@ -3,69 +3,69 @@ name: Pull request checks 🔎
 on:
   pull_request:
 
+
 jobs:
   plan:
     name: "Plan terraform"
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clone repository
-        uses: actions/checkout@v6
+    - name: Clone repository
+      uses: actions/checkout@v6
 
-      - name: Check if changes occured
-        uses: dorny/paths-filter@v3
-        id: filter
-        with:
-          filters: |
-            tf_files:
-              - ./*.tf
-              - ./contents/data.yaml
-              - ./contents/renovate.json
-              - ./modules/*.tf
+    - name: Check if changes occured
+      uses: dorny/paths-filter@v3
+      id: filter
+      with:
+        filters: |
+          tf_files:
+            - ./*.tf
+            - ./contents/data.yaml
+            - ./contents/renovate.json
+            - ./modules/*.tf
 
-      - if: steps.filter.outputs.tf_files == 'false'
-        name: Skip (no Terraform files changed)
-        run: |
-          echo "### ✅ Plan Skipped" >> $GITHUB_STEP_SUMMARY
-          echo "No Terraform files changed." >> $GITHUB_STEP_SUMMARY
-        shell: bash
+    - if: steps.filter.outputs.tf_files == 'false'
+      name: Skip (no Terraform files changed)
+      run: |
+        echo "### ✅ Plan Skipped" >> $GITHUB_STEP_SUMMARY
+        echo "No Terraform files changed." >> $GITHUB_STEP_SUMMARY
+      shell: bash
 
-      - if: steps.filter.outputs.tf_files == 'true'
-        uses: actions/create-github-app-token@v2
-        id: app-token
-        with:
-          app-id: ${{ secrets.DEPLOY_APP_ID }}
-          private-key: ${{ secrets.DEPLOY_APP_KEY }}
+    - if: steps.filter.outputs.tf_files == 'true'
+      uses: actions/create-github-app-token@v2
+      id: app-token
+      with:
+        app-id: ${{ secrets.DEPLOY_APP_ID }}
+        private-key: ${{ secrets.DEPLOY_APP_KEY }}
 
-      - if: steps.filter.outputs.tf_files == 'true'
-        uses: hashicorp/setup-terraform@v3
+    - if: steps.filter.outputs.tf_files == 'true'
+      uses: hashicorp/setup-terraform@v3
 
-      - if: steps.filter.outputs.tf_files == 'true'
-        run: |
-          terraform init \
-            -backend-config="access_key=${{ secrets.SCW_ACCESS_KEY }}" \
-            -backend-config="secret_key=${{ secrets.SCW_SECRET_KEY }}" \
-            -backend-config="bucket=${{ secrets.SCW_BUCKET_NAME }}"
+    - if: steps.filter.outputs.tf_files == 'true'
+      run: |
+        terraform init \
+          -backend-config="access_key=${{ secrets.SCW_ACCESS_KEY }}" \
+          -backend-config="secret_key=${{ secrets.SCW_SECRET_KEY }}" \
+          -backend-config="bucket=${{ secrets.SCW_BUCKET_NAME }}"
 
-      - if: steps.filter.outputs.tf_files == 'true'
-        name: Perform plan
-        id: plan
-        env:
-          GITHUB_TOKEN: ${{ secrets.TTOKEN }}
-        run: terraform plan -no-color -out terraform.plan
+    - if: steps.filter.outputs.tf_files == 'true'
+      name: Perform plan
+      id: plan
+      env:
+        GITHUB_TOKEN: ${{ secrets.TTOKEN }}
+      run: terraform plan -no-color -out terraform.plan
 
-      - if: steps.filter.outputs.tf_files == 'true'
-        run: terraform show -no-color terraform.plan > terraform.text
+    - if: steps.filter.outputs.tf_files == 'true'
+      run: terraform show -no-color terraform.plan > terraform.text
 
-      - if: steps.filter.outputs.tf_files == 'true'
-        run: terraform show -json terraform.plan > terraform.json
+    - if: steps.filter.outputs.tf_files == 'true'
+      run: terraform show -json terraform.plan > terraform.json
 
-      # https://github.com/marketplace/actions/terraform-pull-request-report-generator
-      - if: steps.filter.outputs.tf_files == 'true'
-        uses: ahmadnassri/action-terraform-report@v4
-        with:
-          github-token: ${{ steps.app-token.outputs.token }}
-          remove-stale-reports: true
-          terraform-json: ${{ github.workspace }}/terraform.json
-          terraform-text: ${{ github.workspace }}/terraform.text
-
+    # https://github.com/marketplace/actions/terraform-pull-request-report-generator
+    - if: steps.filter.outputs.tf_files == 'true'
+      uses: ahmadnassri/action-terraform-report@v4
+      with:
+        github-token: ${{ steps.app-token.outputs.token }}
+        remove-stale-reports: true
+        terraform-json: ${{ github.workspace }}/terraform.json
+        terraform-text: ${{ github.workspace }}/terraform.text
