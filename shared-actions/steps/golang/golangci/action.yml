@@ -4,42 +4,42 @@ description: "This uses golanci for this goal"
 runs:
   using: "composite"
   steps:
-    - name: Clone repository
-      uses: actions/checkout@v6
+  - name: Clone repository
+    uses: actions/checkout@v6
 
-    - uses: dorny/paths-filter@v3
-      id: filter
-      with:
-        filters: |
-          go_files:
-            - main.go
-            - src/**/*.go
-            - cmd/**/*.go
-            - internal/**/*.go
+  - uses: dorny/paths-filter@v3
+    id: filter
+    with:
+      filters: |
+        go_files:
+          - main.go
+          - src/**/*.go
+          - cmd/**/*.go
+          - internal/**/*.go
 
-    - if: steps.filter.outputs.go_files == 'false'
-      name: Skip (no Go files changed)
-      run: |
-        echo "### ✅ Lint Skipped" >> $GITHUB_STEP_SUMMARY
-        echo "No Go files changed." >> $GITHUB_STEP_SUMMARY
-      shell: bash
+  - if: steps.filter.outputs.go_files == 'false'
+    name: Skip (no Go files changed)
+    run: |
+      echo "### ✅ Lint Skipped" >> $GITHUB_STEP_SUMMARY
+      echo "No Go files changed." >> $GITHUB_STEP_SUMMARY
+    shell: bash
 
-    - if: steps.filter.outputs.go_files == 'true'
-      name: "Use Golang version of the project"
-      id: vars
-      run: |
-        echo "go_version=$(cat go.mod | head -3 | tail -1 | cut -d ' ' -f 2)" >> $GITHUB_OUTPUT
-        echo "Using Go version $(cat go.mod | head -3 | tail -1 | cut -d ' ' -f 2)"
-      shell: bash
+  - if: steps.filter.outputs.go_files == 'true'
+    name: "Use Golang version of the project"
+    id: vars
+    run: |
+      echo "go_version=$(cat go.mod | head -3 | tail -1 | cut -d ' ' -f 2)" >> $GITHUB_OUTPUT
+      echo "Using Go version $(cat go.mod | head -3 | tail -1 | cut -d ' ' -f 2)"
+    shell: bash
 
-    - if: steps.filter.outputs.go_files == 'true'
-      name: Set up Go
-      uses: actions/setup-go@v6
-      with:
-        go-version: ${{ steps.vars.outputs.go_version }}
+  - if: steps.filter.outputs.go_files == 'true'
+    name: Set up Go
+    uses: actions/setup-go@v6
+    with:
+      go-version: ${{ steps.vars.outputs.go_version }}
 
-    - if: steps.filter.outputs.go_files == 'true'
-      name: Check code quality
-      uses: golangci/golangci-lint-action@v9
-      with:
-        version: v2.9.0
+  - if: steps.filter.outputs.go_files == 'true'
+    name: Check code quality
+    uses: golangci/golangci-lint-action@v9
+    with:
+      version: v2.9.0

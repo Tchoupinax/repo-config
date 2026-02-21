@@ -18,29 +18,29 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v6
+  - uses: actions/checkout@v6
 
-    #- name: Validate package manager
-    #  run: |
-    #    case "${{ inputs.packageManager }}" in
-    #      npm|yarn|pnpm) ;;
-    #      *) echo "::error::packageManager must be one of: npm, yarn, pnpm. Got: ${{ inputs.packageManager }}"; exit 1 ;;
-    #    esac
-    #  shell: bash
+  #- name: Validate package manager
+  #  run: |
+  #    case "${{ inputs.packageManager }}" in
+  #      npm|yarn|pnpm) ;;
+  #      *) echo "::error::packageManager must be one of: npm, yarn, pnpm. Got: ${{ inputs.packageManager }}"; exit 1 ;;
+  #    esac
+  #  shell: bash
 
-    - name: Use Node.js ${{ inputs.nodeVersion }}
-      uses: actions/setup-node@v6
-      with:
-        node-version: ${{ inputs.nodeVersion }}
+  - name: Use Node.js ${{ inputs.nodeVersion }}
+    uses: actions/setup-node@v6
+    with:
+      node-version: ${{ inputs.nodeVersion }}
 
-    - name: Install package manager handler
-      run: npm i -g @antfu/ni --force
-      shell: bash
+  - name: Install package manager handler
+    run: npm i -g @antfu/ni --force
+    shell: bash
 
-    - name: Install dependencies
-      run: ni
-      shell: bash
+  - name: Install dependencies
+    run: ni
+    shell: bash
 
-    - name: Lint source code
-      run: nr ${{ inputs.command }} ${{ inputs.throwOnError == 'false' && '|| true' || '' }}
-      shell: bash
+  - name: Lint source code
+    run: nr ${{ inputs.command }} ${{ inputs.throwOnError == 'false' && '|| true' || '' }}
+    shell: bash

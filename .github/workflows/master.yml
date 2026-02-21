@@ -1,5 +1,4 @@
 name: Prepare next release 🚀
-
 on:
   push:
     branches:
@@ -10,11 +9,10 @@ jobs:
     name: Run release draft to extract labels ☕️
     runs-on: ubuntu-latest
     steps:
-      - name: Clone repository
-        uses: actions/checkout@v6
-
-      - name: Autodetect labels 🔍 
-        uses: ./shared-actions/steps/dx/prepare-draft-release
-        with:
-          appId: ${{ secrets.DEPLOY_APP_ID }}
-          privateKey: ${{ secrets.DEPLOY_APP_KEY }}
+    - name: Clone repository
+      uses: actions/checkout@v6
+    - name: Autodetect labels 🔍
+      uses: ./shared-actions/steps/dx/prepare-draft-release
+      with:
+        appId: ${{ secrets.DEPLOY_APP_ID }}
+        privateKey: ${{ secrets.DEPLOY_APP_KEY }}

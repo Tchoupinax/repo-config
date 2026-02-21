@@ -1,0 +1,78 @@
+version: v1
+
+automaticFeatures:
+  majorPackagesUpgradedTriggersMajorLabel: true
+
+labels:
+- label: "semver:major"
+  sync: true
+  matcher:
+    title: ".*(BREAKING|!).*"
+    body: ".*BREAKING.*"
+    commits: ".*(BREAKING|^feat!|^fix!).*"
+
+- label: "semver:minor"
+  sync: true
+  matcher:
+    title: "^feat(?!.*(BREAKING|!)).*"
+
+- label: "semver:patch"
+  sync: true
+  matcher:
+    title: "^fix(?!.*(BREAKING|!)).*"
+
+- label: "maintenance"
+  sync: true
+  matcher:
+    files:
+      any:
+      - "package.json"
+      - "package-lock.json"
+      - "yarn.lock"
+      - "pnpm-lock.yaml"
+      - "renovate.json"
+      - "go.sum"
+
+- label: "CI/CD"
+  sync: true
+  matcher:
+    files:
+      only:
+      - ".github/**"
+
+- label: "docs"
+  sync: true
+  matcher:
+    files:
+      any:
+      - "**/*.md"
+
+- label: "helm-chart"
+  sync: true
+  matcher:
+    files:
+      any:
+      - "charts/**"
+
+- label: "terraform"
+  sync: true
+  matcher:
+    files:
+      any:
+      - "**/*.tf"
+
+- label: "dependencies"
+  sync: true
+  matcher:
+    files:
+      any:
+      - "go.mod"
+      - "go.sum"
+      - "package.json"
+      - "renovate.json"
+
+checks:
+- context: "Ready to merge"
+  description: "Disable merging when 'draft' label is set."
+  labels:
+    none: [ "review-needed" ]

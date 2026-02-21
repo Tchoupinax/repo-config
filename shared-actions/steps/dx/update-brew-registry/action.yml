@@ -16,12 +16,12 @@ inputs:
 runs:
   using: "composite"
   steps:
-    # Documentation here
-    # https://github.com/mislav/bump-homebrew-formula-action?tab=readme-ov-file#action-inputs
-    - uses: mislav/bump-homebrew-formula-action@v3
-      with:
-        commit-message: "feat({{formulaName}}): publish version {{version}} 🤖"
-        formula-path: ${{ inputs.formulaPath }}
-        homebrew-tap: ${{ inputs.repositoryName }}
-      env:
-        COMMITTER_TOKEN: ${{ inputs.patToken }}
+  # Documentation here
+  # https://github.com/mislav/bump-homebrew-formula-action?tab=readme-ov-file#action-inputs
+  - uses: mislav/bump-homebrew-formula-action@v3
+    with:
+      commit-message: "feat({{formulaName}}): publish version {{version}} 🤖"
+      formula-path: ${{ inputs.formulaPath }}
+      homebrew-tap: ${{ inputs.repositoryName }}
+    env:
+      COMMITTER_TOKEN: ${{ inputs.patToken }}
