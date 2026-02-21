@@ -74,6 +74,12 @@ proxmox-sdk:
     - "sdk"
     - "npm"
 
+pull-request-labeler:
+  description: "Smartly label your pull-requests according custom and specific rules"
+  topics:
+    - "github-actions"
+    - "label"
+
 repo-config:
   description: "My configuration as code of my Github repositories."
   topics:
