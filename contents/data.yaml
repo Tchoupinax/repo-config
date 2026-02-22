@@ -4,6 +4,16 @@ check-git:
   - "git"
   - "cli"
 
+eslint-config-tchoupinax:
+  description: "My custom configuration for ECMAScript"
+  topics:
+  - "eslint"
+  - "format"
+  - "javascript"
+  - "lint"
+  - "prettier"
+  - "typescript"
+
 fuzzy-engine:
   description: "Docker registry UI made with love."
   homepage: "https://fuzzy-engine.corentinfiloche.xyz"
