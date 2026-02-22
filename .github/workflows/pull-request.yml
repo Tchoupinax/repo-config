@@ -5,6 +5,19 @@ on:
 
 
 jobs:
+  autodetect-labels:
+    name: Autodetect labels 🔍
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v6
+
+    - name: Run autodetection
+      uses: ./shared-actions/steps/dx/automatically-apply-labels
+      with:
+        appId: ${{ secrets.DEPLOY_APP_ID }}
+        privateKey: ${{ secrets.DEPLOY_APP_KEY }}
+
   plan:
     name: "Plan terraform"
     runs-on: ubuntu-latest
