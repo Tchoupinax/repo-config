@@ -10,6 +10,9 @@ inputs:
     required: false
     default: "build"
     description: "Specify what is the command to build"
+  pnpmVersion:
+    required: false
+    description: "PNPM version to use (step skipped when not set)"
 
 runs:
   using: "composite"
@@ -30,9 +33,10 @@ runs:
       node-version: ${{ inputs.nodeVersion }}
 
   - name: Setup PNPM
+    if: inputs.pnpmVersion != ''
     uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4.2.0
     with:
-      version: 10.30.0
+      version: ${{ inputs.pnpmVersion }}
 
   - name: Install package manager handler
     run: npm i -g @antfu/ni --force
