@@ -8,34 +8,41 @@ inputs:
   privateKey:
     required: true
     description: Private key of the Github app
+  workingDirectory:
+    default: "."
+    required: false
+    description: "Directory containing go.mod and .goreleaser (default repo root)"
 
 runs:
   using: "composite"
   steps:
-    - name: Clone repository
-      uses: actions/checkout@v6
+  - name: Clone repository
+    uses: actions/checkout@v6
 
-    - id: vars
-      run: |
-        echo "go_version=$(cat go.mod | head -3 | tail -1 | cut -d ' ' -f 2)" >> $GITHUB_OUTPUT
-        echo "Using Go version $(cat go.mod | head -3 | tail -1 | cut -d ' ' -f 2)"
-      shell: bash
+  - name: "Use Golang version of the project"
+    id: vars
+    working-directory: ${{ inputs.workingDirectory }}
+    run: |
+      echo "go_version=$(cat go.mod | head -3 | tail -1 | cut -d ' ' -f 2)" >> $GITHUB_OUTPUT
+      echo "Using Go version $(cat go.mod | head -3 | tail -1 | cut -d ' ' -f 2)"
+    shell: bash
 
-    - name: Set up Go
-      uses: actions/setup-go@v6
-      with:
-        go-version: ${{ steps.vars.outputs.go_version }}
+  - name: Set up Go
+    uses: actions/setup-go@v6
+    with:
+      go-version: ${{ steps.vars.outputs.go_version }}
 
-    - uses: actions/create-github-app-token@v2
-      id: app-token
-      with:
-        app-id: ${{ inputs.appId }}
-        private-key: ${{ inputs.privateKey }}
+  - uses: actions/create-github-app-token@v2
+    id: app-token
+    with:
+      app-id: ${{ inputs.appId }}
+      private-key: ${{ inputs.privateKey }}
 
-    - name: Run GoReleaser
-      uses: goreleaser/goreleaser-action@v7
-      with:
-        version: "~> v2"
-        args: "release --clean"
-      env:
-        GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+  - name: Run GoReleaser
+    uses: goreleaser/goreleaser-action@v7
+    with:
+      version: "~> v2"
+      args: "release --clean"
+      workdir: ${{ inputs.workingDirectory }}
+    env:
+      GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
