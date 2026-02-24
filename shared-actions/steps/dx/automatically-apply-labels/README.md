@@ -9,6 +9,7 @@ When a pull request is opened, it configures labels automatically according rule
 | --- | --- | --- | --- |
 | `appId` | <p>ID of the Github app</p> | `true` | `""` |
 | `privateKey` | <p>Private key of the Github app</p> | `true` | `""` |
+| `workingDirectory` | <p>Reserved for future use; currently unused</p> | `false` | `.` |
 
 
 ## Runs
@@ -31,6 +32,12 @@ This action is a `composite` action.
     #
     # Required: true
     # Default: ""
+
+    workingDirectory:
+    # Reserved for future use; currently unused
+    #
+    # Required: false
+    # Default: .
 ```
 <!-- action-docs-all source="action.yml" project="tchoupinax/repo-config" version="v0" -->
 

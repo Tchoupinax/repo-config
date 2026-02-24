@@ -10,6 +10,7 @@ This allow to run test for your Node.js application
 | `nodeVersion` | <p>Node.js version to use</p> | `false` | `25` |
 | `command` | <p>Specify what is the command to run tests</p> | `false` | `tests` |
 | `pnpmVersion` | <p>PNPM version to use (step skipped when not set)</p> | `false` | `""` |
+| `workingDirectory` | <p>Directory to run test commands in</p> | `false` | `.` |
 
 
 ## Runs
@@ -38,6 +39,12 @@ This action is a `composite` action.
     #
     # Required: false
     # Default: ""
+
+    workingDirectory:
+    # Directory to run test commands in
+    #
+    # Required: false
+    # Default: .
 ```
 <!-- action-docs-all source="action.yml" project="tchoupinax/repo-config" version="v0" -->
 
