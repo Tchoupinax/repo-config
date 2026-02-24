@@ -13,6 +13,10 @@ inputs:
   pnpmVersion:
     required: false
     description: "PNPM version to use (step skipped when not set)"
+  workingDirectory:
+    required: false
+    default: "."
+    description: "Directory to run build commands in"
 
 runs:
   using: "composite"
@@ -45,7 +49,9 @@ runs:
   - name: Install dependencies
     run: ni
     shell: bash
+    working-directory: ${{ inputs.workingDirectory }}
 
   - name: Build applications
     run: nr ${{ inputs.command }}
     shell: bash
+    working-directory: ${{ inputs.workingDirectory }}

@@ -17,6 +17,10 @@ inputs:
   pnpmVersion:
     required: false
     description: "PNPM version to use (step skipped when not set)"
+  workingDirectory:
+    required: false
+    default: "."
+    description: "Directory to run lint commands in"
 
 runs:
   using: "composite"
@@ -49,7 +53,9 @@ runs:
   - name: Install dependencies
     run: ni
     shell: bash
+    working-directory: ${{ inputs.workingDirectory }}
 
   - name: Lint source code
     run: nr ${{ inputs.command }} ${{ inputs.throwOnError == 'false' && '|| true' || '' }}
     shell: bash
+    working-directory: ${{ inputs.workingDirectory }}
