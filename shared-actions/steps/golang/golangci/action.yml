@@ -1,6 +1,12 @@
 name: "Check code quality for Golang application"
 description: "This uses golanci for this goal"
 
+inputs:
+  workingDirectory:
+    required: false
+    default: "."
+    description: "Directory containing go.mod (default repo root)"
+
 runs:
   using: "composite"
   steps:
@@ -27,6 +33,7 @@ runs:
   - if: steps.filter.outputs.go_files == 'true'
     name: "Use Golang version of the project"
     id: vars
+    working-directory: ${{ inputs.workingDirectory }}
     run: |
       echo "go_version=$(cat go.mod | head -3 | tail -1 | cut -d ' ' -f 2)" >> $GITHUB_OUTPUT
       echo "Using Go version $(cat go.mod | head -3 | tail -1 | cut -d ' ' -f 2)"
@@ -43,3 +50,4 @@ runs:
     uses: golangci/golangci-lint-action@v9
     with:
       version: v2.9.0
+      working-directory: ${{ inputs.workingDirectory }}

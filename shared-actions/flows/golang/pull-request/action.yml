@@ -8,15 +8,23 @@ inputs:
   privateKey:
     required: true
     description: Private key of the Github app
+  workingDirectory:
+    required: false
+    default: "."
+    description: "Directory containing the Go project (passed to underlying actions)"
 
 runs:
   using: "composite"
   steps:
     - name: Check code quality 🫆
       uses: tchoupinax/repo-config/shared-actions/golang/golangci@v0
+      with:
+        workingDirectory: ${{ inputs.workingDirectory }}
 
     - name: Check build success 🦫
       uses: tchoupinax/repo-config/shared-actions/golang/goreleaser-build-only@v0
+      with:
+        workingDirectory: ${{ inputs.workingDirectory }}
 
     - name: Autodetect labels 🔍
       uses: tchoupinax/repo-config/shared-actions/dx/automatically-apply-labels@v0

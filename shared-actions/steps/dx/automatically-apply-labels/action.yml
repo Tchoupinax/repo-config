@@ -8,6 +8,10 @@ inputs:
   privateKey:
     required: true
     description: Private key of the Github app
+  workingDirectory:
+    required: false
+    default: "."
+    description: "Reserved for future use; currently unused"
 
 runs:
   using: "composite"

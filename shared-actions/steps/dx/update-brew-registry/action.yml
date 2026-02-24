@@ -12,6 +12,10 @@ inputs:
   formulaPath:
     required: true
     description: "Path of your fomrmula inside the repository"
+  workingDirectory:
+    required: false
+    default: "."
+    description: "Reserved for future use; currently unused"
 
 runs:
   using: "composite"

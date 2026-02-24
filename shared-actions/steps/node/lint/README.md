@@ -11,6 +11,7 @@ This run lint command for Node.js application
 | `command` | <p>Specify what is the command to lint</p> | `false` | `lint` |
 | `throwOnError` | <p>Set to false if error should be silenced</p> | `false` | `true` |
 | `pnpmVersion` | <p>PNPM version to use (step skipped when not set)</p> | `false` | `""` |
+| `workingDirectory` | <p>Directory to run lint commands in</p> | `false` | `.` |
 
 
 ## Runs
@@ -45,6 +46,12 @@ This action is a `composite` action.
     #
     # Required: false
     # Default: ""
+
+    workingDirectory:
+    # Directory to run lint commands in
+    #
+    # Required: false
+    # Default: .
 ```
 <!-- action-docs-all source="action.yml" project="tchoupinax/repo-config" version="v0" -->
 
