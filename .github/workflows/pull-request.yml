@@ -18,6 +18,29 @@ jobs:
         appId: ${{ secrets.DEPLOY_APP_ID }}
         privateKey: ${{ secrets.DEPLOY_APP_KEY }}
 
+  action-docs:
+    name: "Validate shared-actions docs"
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v6
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version: '22'
+
+    - name: Generate action docs
+      run: bash scripts/generate-actions-docs.sh
+
+    - name: Ensure no docs changes
+      run: |
+        if ! git diff --quiet; then
+          echo "Shared action docs are out of date. Please run 'bash scripts/generate-actions-docs.sh' and commit the changes."
+          git diff
+          exit 1
+        fi
+
   plan:
     name: "Plan terraform"
     runs-on: ubuntu-latest
