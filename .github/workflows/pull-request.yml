@@ -52,7 +52,7 @@ jobs:
         private-key: ${{ secrets.DEPLOY_APP_KEY }}
 
     - if: steps.filter.outputs.tf_files == 'true'
-      uses: hashicorp/setup-terraform@v3
+      uses: hashicorp/setup-terraform@v4
 
     - if: steps.filter.outputs.tf_files == 'true'
       run: |
