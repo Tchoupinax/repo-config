@@ -24,7 +24,7 @@ labels:
 - label: "semver:patch"
   sync: true
   matcher:
-    title: "^fix(?!.*(BREAKING|!)).*"
+    title: ^fix(?:\((?!deps\))[^)]*\))?:\s*(?!.*\bBREAKING\b|.*!).+
 
 - label: "maintenance"
   sync: true
