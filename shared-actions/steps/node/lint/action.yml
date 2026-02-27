@@ -2,29 +2,29 @@ name: "Check code quality for Node.js application"
 description: "This run lint command for Node.js application"
 
 inputs:
-  nodeVersion:
-    required: false
-    default: "25"
-    description: "Node.js version to use"
-  command:
-    required: false
-    default: "lint"
-    description: "Specify what is the command to lint"
-  throwOnError:
-    required: false
-    default: "true"
-    description: "Set to false if error should be silenced"
-  pnpmVersion:
-    required: false
-    description: "PNPM version to use (step skipped when not set)"
-  workingDirectory:
-    required: false
-    default: "."
-    description: "Directory to run lint commands in"
   checkout:
     required: false
     default: "true"
     description: "Whether to checkout the repository (set to false if already done in a previous step)"
+  command:
+    required: false
+    default: "lint"
+    description: "Specify what is the command to lint"
+  nodeVersion:
+    required: false
+    default: "25"
+    description: "Node.js version to use"
+  pnpmVersion:
+    required: false
+    description: "PNPM version to use (step skipped when not set)"
+  throwOnError:
+    required: false
+    default: "true"
+    description: "Set to false if error should be silenced"
+  workingDirectory:
+    required: false
+    default: "."
+    description: "Directory to run lint commands in"
 
 runs:
   using: "composite"

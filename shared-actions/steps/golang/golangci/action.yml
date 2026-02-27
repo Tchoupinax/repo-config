@@ -2,15 +2,14 @@ name: "Check code quality for Golang application"
 description: "This uses golanci for this goal"
 
 inputs:
-  workingDirectory:
-    required: false
-    default: "."
-    description: "Directory containing go.mod (default repo root)"
-
   checkout:
     required: false
     default: "true"
     description: "Whether to checkout the repository (set to false if already done in a previous step)"
+  workingDirectory:
+    required: false
+    default: "."
+    description: "Directory containing go.mod (default repo root)"
 
 runs:
   using: "composite"

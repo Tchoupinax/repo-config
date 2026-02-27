@@ -2,6 +2,9 @@ name: "Update brew registry"
 description: "When releasing a package that can be installed with brew, update the version and the hash in the registry on Github"
 
 inputs:
+  formulaPath:
+    required: true
+    description: "Path of your fomrmula inside the repository"
   patToken:
     required: true
     description: PAT for your Github account
@@ -9,9 +12,6 @@ inputs:
     required: false
     default: "Tchoupinax/homebrew-brew"
     description: "<owner>/<repo_name> of your registry on Github"
-  formulaPath:
-    required: true
-    description: "Path of your fomrmula inside the repository"
   workingDirectory:
     required: false
     default: "."
