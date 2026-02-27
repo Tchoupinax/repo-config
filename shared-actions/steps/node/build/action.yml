@@ -17,11 +17,17 @@ inputs:
     required: false
     default: "."
     description: "Directory to run build commands in"
+  checkout:
+    required: false
+    default: "true"
+    description: "Whether to checkout the repository (set to false if already done in a previous step)"
 
 runs:
   using: "composite"
   steps:
-  - uses: actions/checkout@v6
+  - if: inputs.checkout == 'true'
+    name: Checkout repository
+    uses: actions/checkout@v6
 
   #- name: Validate package manager
   #  run: |

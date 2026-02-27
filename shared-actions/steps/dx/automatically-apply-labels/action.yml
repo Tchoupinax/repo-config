@@ -12,11 +12,16 @@ inputs:
     required: false
     default: "."
     description: "Reserved for future use; currently unused"
+  checkout:
+    required: false
+    default: "true"
+    description: "Whether to checkout the repository (set to false if already done in a previous step)"
 
 runs:
   using: "composite"
   steps:
-  - name: Clone repository
+  - if: inputs.checkout == 'true'
+    name: Clone repository
     uses: actions/checkout@v6
 
   - uses: actions/create-github-app-token@v2
