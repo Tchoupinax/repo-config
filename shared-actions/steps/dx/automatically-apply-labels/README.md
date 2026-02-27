@@ -10,6 +10,7 @@ When a pull request is opened, it configures labels automatically according rule
 | `appId` | <p>ID of the Github app</p> | `true` | `""` |
 | `privateKey` | <p>Private key of the Github app</p> | `true` | `""` |
 | `workingDirectory` | <p>Reserved for future use; currently unused</p> | `false` | `.` |
+| `checkout` | <p>Whether to checkout the repository (set to false if already done in a previous step)</p> | `false` | `true` |
 
 
 ## Runs
@@ -38,6 +39,12 @@ This action is a `composite` action.
     #
     # Required: false
     # Default: .
+
+    checkout:
+    # Whether to checkout the repository (set to false if already done in a previous step)
+    #
+    # Required: false
+    # Default: true
 ```
 <!-- action-docs-all source="action.yml" project="tchoupinax/repo-config" version="v0" -->
 

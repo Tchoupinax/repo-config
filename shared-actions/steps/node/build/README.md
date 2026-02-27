@@ -11,6 +11,7 @@ This allow to build your Node.js application
 | `command` | <p>Specify what is the command to build</p> | `false` | `build` |
 | `pnpmVersion` | <p>PNPM version to use (step skipped when not set)</p> | `false` | `""` |
 | `workingDirectory` | <p>Directory to run build commands in</p> | `false` | `.` |
+| `checkout` | <p>Whether to checkout the repository (set to false if already done in a previous step)</p> | `false` | `true` |
 
 
 ## Runs
@@ -45,6 +46,12 @@ This action is a `composite` action.
     #
     # Required: false
     # Default: .
+
+    checkout:
+    # Whether to checkout the repository (set to false if already done in a previous step)
+    #
+    # Required: false
+    # Default: true
 ```
 <!-- action-docs-all source="action.yml" project="tchoupinax/repo-config" version="v0" -->
 
