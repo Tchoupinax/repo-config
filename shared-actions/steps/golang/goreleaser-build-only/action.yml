@@ -2,14 +2,14 @@ name: "Build Go binary with Goreleaser"
 description: "This only build, it's for checking purpose on pull request"
 
 inputs:
-  workingDirectory:
-    default: "."
-    required: false
-    description: "Directory containing go.mod and .goreleaser (default repo root)"
   checkout:
     required: false
     default: "true"
     description: "Whether to checkout the repository (set to false if already done in a previous step)"
+  workingDirectory:
+    default: "."
+    required: false
+    description: "Directory containing go.mod and .goreleaser (default repo root)"
 
 runs:
   using: "composite"

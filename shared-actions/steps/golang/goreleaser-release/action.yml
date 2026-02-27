@@ -5,6 +5,10 @@ inputs:
   appId:
     required: true
     description: ID of the Github app
+  checkout:
+    required: false
+    default: "true"
+    description: "Whether to checkout the repository (set to false if already done in a previous step)"
   privateKey:
     required: true
     description: Private key of the Github app
@@ -12,10 +16,6 @@ inputs:
     default: "."
     required: false
     description: "Directory containing go.mod and .goreleaser (default repo root)"
-  checkout:
-    required: false
-    default: "true"
-    description: "Whether to checkout the repository (set to false if already done in a previous step)"
 
 runs:
   using: "composite"

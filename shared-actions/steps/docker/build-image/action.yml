@@ -1,0 +1,109 @@
+name: "Build and publish Docker image"
+description: "Build a multi-architecture Docker image and push it to container registries."
+
+inputs:
+  buildArgs:
+    required: false
+    description: "Additional build args for docker/build-push-action (newline-separated KEY=VALUE)"
+  checkout:
+    required: false
+    default: "true"
+    description: "Whether to checkout the repository (set to false if already done in a previous step)"
+  context:
+    required: false
+    default: "."
+    description: "Docker build context, relative to workingDirectory"
+  dockerhubToken:
+    required: false
+    description: "Docker Hub access token or password (required if enableDockerHub is true)"
+  dockerhubUsername:
+    required: false
+    description: "Docker Hub username (required if enableDockerHub is true)"
+  enableDockerHub:
+    required: false
+    default: "false"
+    description: "Whether to log in to and push images to Docker Hub"
+  enableGhcr:
+    required: false
+    default: "true"
+    description: "Whether to log in to and push images to GitHub Container Registry (ghcr.io)"
+  file:
+    required: false
+    description: "Path to Dockerfile, relative to the build context (optional)"
+  flavor:
+    required: false
+    default: "latest=true"
+    description: "Flavor configuration passed to docker/metadata-action (e.g. latest=true)"
+  images:
+    required: true
+    description: |
+      Newline-separated list of image names to tag and publish (e.g.:
+      ghcr.io/owner/app
+      owner/app)
+  platforms:
+    required: false
+    default: "linux/amd64,linux/arm64"
+    description: "Target platforms for the image build"
+  push:
+    required: false
+    default: "true"
+    description: "Whether to push the built image(s) to the registry"
+  tags:
+    required: false
+    default: |
+      type=ref,event=branch
+      type=ref,event=pr
+      type=semver,pattern={{raw}}
+    description: "Tag configuration passed to docker/metadata-action"
+  workingDirectory:
+    required: false
+    default: "."
+    description: "Base directory for the Docker context (typically the repository root)"
+
+runs:
+  using: "composite"
+  steps:
+  - if: inputs.checkout == 'true'
+    name: Checkout repository
+    uses: actions/checkout@v6
+
+  - name: Set up QEMU
+    uses: docker/setup-qemu-action@v3
+
+  - name: Set up Docker Buildx
+    uses: docker/setup-buildx-action@v3
+
+  - name: Log in to GitHub Container Registry
+    if: inputs.enableGhcr == 'true'
+    uses: docker/login-action@v3
+    with:
+      registry: ghcr.io
+      username: ${{ github.actor }}
+      password: ${{ secrets.GITHUB_TOKEN }}
+
+  - name: Log in to Docker Hub
+    if: inputs.enableDockerHub == 'true'
+    uses: docker/login-action@v3
+    with:
+      username: ${{ inputs.dockerhubUsername }}
+      password: ${{ inputs.dockerhubToken }}
+
+  - name: Docker meta
+    id: meta
+    uses: docker/metadata-action@v5
+    with:
+      images: ${{ inputs.images }}
+      flavor: ${{ inputs.flavor }}
+      tags: ${{ inputs.tags }}
+
+  - name: Build and push
+    uses: docker/build-push-action@v6
+    with:
+      context: ${{ inputs.workingDirectory == '.' && inputs.context || format('{0}/{1}', inputs.workingDirectory, inputs.context) }}
+      file: ${{ inputs.file }}
+      labels: ${{ steps.meta.outputs.labels }}
+      platforms: ${{ inputs.platforms }}
+      push: ${{ inputs.push }}
+      tags: ${{ steps.meta.outputs.tags }}
+      build-args: ${{ inputs.buildArgs }}
+

@@ -2,14 +2,18 @@ name: "Build Node.js application"
 description: "This allow to build your Node.js application"
 
 inputs:
-  nodeVersion:
+  checkout:
     required: false
-    default: "25"
-    description: "Node.js version to use"
+    default: "true"
+    description: "Whether to checkout the repository (set to false if already done in a previous step)"
   command:
     required: false
     default: "build"
     description: "Specify what is the command to build"
+  nodeVersion:
+    required: false
+    default: "25"
+    description: "Node.js version to use"
   pnpmVersion:
     required: false
     description: "PNPM version to use (step skipped when not set)"
@@ -17,10 +21,6 @@ inputs:
     required: false
     default: "."
     description: "Directory to run build commands in"
-  checkout:
-    required: false
-    default: "true"
-    description: "Whether to checkout the repository (set to false if already done in a previous step)"
 
 runs:
   using: "composite"
