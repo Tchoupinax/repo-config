@@ -10,7 +10,7 @@ This allow to build your Node.js application
 | `checkout` | <p>Whether to checkout the repository (set to false if already done in a previous step)</p> | `false` | `true` |
 | `command` | <p>Specify what is the command to build</p> | `false` | `build` |
 | `nodeVersion` | <p>Node.js version to use</p> | `false` | `25` |
-| `pnpmVersion` | <p>PNPM version to use (step skipped when not set)</p> | `false` | `""` |
+| `pnpmVersion` | <p>PNPM version to use (optional; step also runs when pnpm-lock.yaml is present)</p> | `false` | `""` |
 | `workingDirectory` | <p>Directory to run build commands in</p> | `false` | `.` |
 
 
@@ -42,7 +42,7 @@ This action is a `composite` action.
     # Default: 25
 
     pnpmVersion:
-    # PNPM version to use (step skipped when not set)
+    # PNPM version to use (optional; step also runs when pnpm-lock.yaml is present)
     #
     # Required: false
     # Default: ""
