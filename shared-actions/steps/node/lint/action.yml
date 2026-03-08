@@ -54,7 +54,7 @@ runs:
       else
         echo "exists=false" >> $GITHUB_OUTPUT
       fi
-    shell: bashf
+    shell: bash
 
   - name: Setup PNPM
     if: inputs.pnpmVersion != '' || steps.pnpm.outputs.exists == 'true'
