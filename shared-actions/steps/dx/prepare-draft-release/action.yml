@@ -32,6 +32,6 @@ runs:
       app-id: ${{ inputs.appId }}
       private-key: ${{ inputs.privateKey }}
 
-  - uses: release-drafter/release-drafter@v6
+  - uses: release-drafter/release-drafter@v7
     env:
       GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
