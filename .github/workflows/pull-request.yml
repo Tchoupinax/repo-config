@@ -68,7 +68,7 @@ jobs:
       shell: bash
 
     - if: steps.filter.outputs.tf_files == 'true'
-      uses: actions/create-github-app-token@v2
+      uses: actions/create-github-app-token@v3
       id: app-token
       with:
         app-id: ${{ secrets.DEPLOY_APP_ID }}
