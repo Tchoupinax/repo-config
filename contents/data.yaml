@@ -6,6 +6,7 @@ check-git:
 
 cursor-events-analyzer:
   description: "Webapp to analyze your cursor consumption."
+  homepage: "https://tchoupinax.github.io/cursor-events-analyzer"
   topics:
   - "cursor"
   - "ai"
