@@ -10,6 +10,7 @@ cursor-events-analyzer:
   - "cursor"
   - "ai"
   - "money"
+  page: true
 
 eslint-config-tchoupinax:
   description: "My custom configuration for ECMAScript"
