@@ -4,6 +4,13 @@ check-git:
   - "git"
   - "cli"
 
+cursor-events-analyzer:
+  description: "Webapp to analyze your cursor consumption."
+  topics:
+  - "cursor"
+  - "ai"
+  - "money"
+
 eslint-config-tchoupinax:
   description: "My custom configuration for ECMAScript"
   topics:
