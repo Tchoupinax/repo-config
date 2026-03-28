@@ -30,7 +30,7 @@ resource "github_repository" "repositories" {
 
     content {
       source {
-        branch = "gh-pages"
+        branch = try(each.value.pageBranch, "master")
         path   = "/"
       }
     }

@@ -51,6 +51,7 @@ image-operator:
   - "image"
   - "skopeo"
   page: true
+  pageBranch: "gh-pages"
 
 git-branch:
   description: "Local tool to easily switch and view your git branches"
