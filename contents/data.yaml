@@ -128,6 +128,13 @@ ssh-list:
   topics:
   - "ssh"
 
+package-json-formatter:
+  description: "A CLI that guarantees harmony across all your projects and package.json files."
+  topics:
+  - "javascript"
+  - "typescript"
+  - "cli"
+
 timelord:
   description: "Next generation of cron orchestrator. Centralized, friendly, powerful."
   topics:
