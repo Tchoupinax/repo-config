@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Clone repository
-      uses: actions/checkout@v6
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
     - name: Run autodetection
       uses: ./shared-actions/steps/dx/automatically-apply-labels
@@ -23,10 +23,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Clone repository
-      uses: actions/checkout@v6
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
     - name: Setup Node.js
-      uses: actions/setup-node@v6
+      uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
       with:
         node-version: '24'
 
@@ -47,10 +47,10 @@ jobs:
 
     steps:
     - name: Clone repository
-      uses: actions/checkout@v6
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
     - name: Check if changes occured
-      uses: dorny/paths-filter@v4
+      uses: dorny/paths-filter@fbd0ab8f3e69293af611ebaee6363fc25e6d187d # v4.0.1
       id: filter
       with:
         filters: |
@@ -68,14 +68,14 @@ jobs:
       shell: bash
 
     - if: steps.filter.outputs.tf_files == 'true'
-      uses: actions/create-github-app-token@v3
+      uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3.1.1
       id: app-token
       with:
         app-id: ${{ secrets.DEPLOY_APP_ID }}
         private-key: ${{ secrets.DEPLOY_APP_KEY }}
 
     - if: steps.filter.outputs.tf_files == 'true'
-      uses: hashicorp/setup-terraform@v4
+      uses: hashicorp/setup-terraform@5e8dbf3c6d9deaf4193ca7a8fb23f2ac83bb6c85 # v4.0.0
 
     - if: steps.filter.outputs.tf_files == 'true'
       run: |
@@ -99,7 +99,7 @@ jobs:
 
     # https://github.com/marketplace/actions/terraform-pull-request-report-generator
     - if: steps.filter.outputs.tf_files == 'true'
-      uses: ahmadnassri/action-terraform-report@v5
+      uses: ahmadnassri/action-terraform-report@9f0b1f4b72ee07f96e3196f74566418aa8e85648 # v5.1.1
       with:
         github-token: ${{ steps.app-token.outputs.token }}
         remove-stale-reports: true
