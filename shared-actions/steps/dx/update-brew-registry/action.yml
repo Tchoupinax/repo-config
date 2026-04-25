@@ -22,7 +22,7 @@ runs:
   steps:
   # Documentation here
   # https://github.com/mislav/bump-homebrew-formula-action?tab=readme-ov-file#action-inputs
-  - uses: mislav/bump-homebrew-formula-action@v3
+  - uses: mislav/bump-homebrew-formula-action@v4.1
     with:
       commit-message: "feat({{formulaName}}): publish version {{version}} 🤖"
       formula-path: ${{ inputs.formulaPath }}
