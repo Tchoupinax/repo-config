@@ -1,5 +1,10 @@
 locals {
   repositories = yamldecode(file("${path.module}/contents/data.yaml"))
+
+  repositories_with_pages = {
+    for name, cfg in local.repositories : name => cfg
+    if try(cfg.page, false)
+  }
 }
 
 resource "github_repository" "repositories" {
@@ -24,17 +29,13 @@ resource "github_repository" "repositories" {
   archive_on_destroy     = true
   auto_init              = true
   delete_branch_on_merge = true
+}
 
-  dynamic "pages" {
-    for_each = try(each.value.page, false) ? [1] : []
+resource "github_repository_pages" "pages" {
+  for_each = local.repositories_with_pages
 
-    content {
-      source {
-        branch = try(each.value.pageBranch, "master")
-        path   = "/"
-      }
-    }
-  }
+  repository = github_repository.repositories[each.key].name
+  build_type = "workflow"
 }
 
 resource "github_branch_protection" "this" {
