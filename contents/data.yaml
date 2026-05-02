@@ -1,3 +1,10 @@
+brain-trainer:
+  description: "Webapp with small exercices to train your brain and keep it in shape."
+  homepage: "https://tchoupinax.github.io/brain-trainer"
+  topics:
+  - "brain"
+  page: true
+
 check-git:
   description: "CLI to easily check which local repositories have uncommitted changes."
   topics:
