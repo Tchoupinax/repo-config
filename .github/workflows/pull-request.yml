@@ -68,14 +68,14 @@ jobs:
       shell: bash
 
     - if: steps.filter.outputs.tf_files == 'true'
-      uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3.1.1
+      uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
       id: app-token
       with:
         app-id: ${{ secrets.DEPLOY_APP_ID }}
         private-key: ${{ secrets.DEPLOY_APP_KEY }}
 
     - if: steps.filter.outputs.tf_files == 'true'
-      uses: hashicorp/setup-terraform@5e8dbf3c6d9deaf4193ca7a8fb23f2ac83bb6c85 # v4.0.0
+      uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
 
     - if: steps.filter.outputs.tf_files == 'true'
       run: |
