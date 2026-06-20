@@ -26,12 +26,12 @@ runs:
     with:
       fetch-depth: 0
 
-  - uses: actions/create-github-app-token@v3
+  - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
     id: app-token
     with:
       app-id: ${{ inputs.appId }}
       private-key: ${{ inputs.privateKey }}
 
-  - uses: release-drafter/release-drafter@v7
+  - uses: release-drafter/release-drafter@ed4bc48ec97379be2258e7b7ac2624a3e26ab809 # v7.4.0
     env:
       GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}

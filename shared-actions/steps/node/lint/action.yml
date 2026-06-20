@@ -63,7 +63,7 @@ runs:
       version: ${{ inputs.pnpmVersion && inputs.pnpmVersion || '' }}
 
   - name: Install package manager handler
-    run: npm i -g @antfu/ni --force
+    run: npm i -g @antfu/ni@30.1.0 --force
     shell: bash
 
   - name: Install dependencies

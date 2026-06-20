@@ -39,6 +39,32 @@ The CI requires TOKEN_GITHUB, a token created that give the following rights:
 - `Contents`: Write
 - `Pull requests`: Write
 
+## Terraform apply protection
+
+The `terraform apply` workflow runs in the `terraform` GitHub Environment. Configure it once in the repository settings:
+
+1. Go to **Settings → Environments → New environment** and create `terraform`.
+2. Enable **Required reviewers** and add at least one approver.
+3. Optionally restrict deployment branches to `master`.
+
+Every apply (including pushes to `master` that change Terraform files) waits for approval before changing GitHub resources.
+
+## Branch protection
+
+Managed repositories require at least one pull request review before merging to `master`.
+
+The `repo-config` repository also requires these CI checks on `master`:
+
+- `Autodetect labels 🔍`
+- `Validate shared-actions docs`
+- `Plan terraform`
+
+Add `requiredStatusChecks` to a repository entry in `contents/data.yaml` to require additional checks elsewhere.
+
+## GitHub Actions allowlist
+
+Managed repositories only allow GitHub-owned actions, verified publisher actions, and patterns listed in `local.allowed_action_patterns` inside `repositories.tf`. Extend that list when a repository needs a new third-party action.
+
 ## Renovate configuration
 
 The dashboard is accessible [here](https://developer.mend.io/github/Tchoupinax). To add an app, use this [page](https://github.com/settings/installations/53876128).
