@@ -113,6 +113,10 @@ repo-config:
   - "iac"
   - "github"
   - "repositories"
+  requiredStatusChecks:
+  - "Autodetect labels 🔍"
+  - "Validate shared-actions docs"
+  - "Plan terraform"
 
 s3-prometheus-exporter:
   description: "A simple configurable S3 exporter metrics for prometheus. Useful to track your backups."

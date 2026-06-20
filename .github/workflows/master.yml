@@ -4,6 +4,9 @@ on:
     branches:
     - master
 
+permissions:
+  contents: read
+
 jobs:
   build:
     name: Run release draft to extract labels ☕️

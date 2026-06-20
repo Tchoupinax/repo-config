@@ -5,6 +5,28 @@ locals {
     for name, cfg in local.repositories : name => cfg
     if try(cfg.page, false)
   }
+
+  allowed_action_patterns = [
+    "Tchoupinax/pull-request-labeler@*",
+    "ahmadnassri/action-terraform-report@*",
+    "docker/build-push-action@*",
+    "docker/login-action@*",
+    "docker/metadata-action@*",
+    "docker/setup-buildx-action@*",
+    "docker/setup-qemu-action@*",
+    "dorny/paths-filter@*",
+    "fuxingloh/multi-labeler@*",
+    "golangci/golangci-lint-action@*",
+    "goreleaser/goreleaser-action@*",
+    "hashicorp/setup-terraform@*",
+    "helm/chart-testing-action@*",
+    "helm/kind-action@*",
+    "mislav/bump-homebrew-formula-action@*",
+    "pnpm/action-setup@*",
+    "release-drafter/release-drafter@*",
+    "stefanprodan/helm-gh-pages@*",
+    "tchoupinax/repo-config@*",
+  ]
 }
 
 resource "github_repository" "repositories" {
@@ -47,8 +69,14 @@ resource "github_branch_protection" "this" {
   enforce_admins   = true
   allows_deletions = false
 
+  required_pull_request_reviews {
+    required_approving_review_count = try(each.value.requiredApprovingReviewCount, 1)
+    dismiss_stale_reviews           = true
+  }
+
   required_status_checks {
-    strict = false
+    strict   = try(each.value.requiredStatusChecksStrict, false)
+    contexts = try(each.value.requiredStatusChecks, [])
   }
 }
 
@@ -71,18 +99,11 @@ resource "github_actions_repository_permissions" "this" {
 
   repository = each.value.name
 
-  allowed_actions = "all"
-  # allowed_actions = "selected"
-  # allowed_actions_config {
-  #   github_owned_allowed = true
-  #   patterns_allowed = [
-  #     "ahmadnassri/action-terraform-report@*",
-  #     "fuxingloh/multi-labeler@*",
-  #     "helm/chart-testing-action@*",
-  #     "helm/kind-action@*",
-  #     "release-drafter/release-drafter@*",
-  #     "stefanprodan/helm-gh-pages@*",
-  #   ]
-  #   verified_allowed = true
-  # }
+  allowed_actions = "selected"
+
+  allowed_actions_config {
+    github_owned_allowed = true
+    verified_allowed     = true
+    patterns_allowed     = local.allowed_action_patterns
+  }
 }
