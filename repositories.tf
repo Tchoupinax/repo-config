@@ -69,9 +69,13 @@ resource "github_branch_protection" "this" {
   enforce_admins   = true
   allows_deletions = false
 
-  required_pull_request_reviews {
-    required_approving_review_count = try(each.value.requiredApprovingReviewCount, 1)
-    dismiss_stale_reviews           = true
+  dynamic "required_pull_request_reviews" {
+    for_each = try(each.value.requiredApprovingReviewCount, 0) > 0 ? [try(each.value.requiredApprovingReviewCount, 1)] : []
+
+    content {
+      required_approving_review_count = required_pull_request_reviews.value
+      dismiss_stale_reviews           = true
+    }
   }
 
   required_status_checks {
