@@ -113,6 +113,7 @@ repo-config:
   - "iac"
   - "github"
   - "repositories"
+  requiredApprovingReviewCount: 1
   requiredStatusChecks:
   - "Autodetect labels 🔍"
   - "Validate shared-actions docs"

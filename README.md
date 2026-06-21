@@ -51,7 +51,9 @@ Every apply (including pushes to `master` that change Terraform files) waits for
 
 ## Branch protection
 
-Managed repositories require at least one pull request review before merging to `master`.
+By default, managed repositories do not require pull request approvals (so a solo maintainer can merge their own PRs). GitHub does not let PR authors approve their own pull requests.
+
+Set `requiredApprovingReviewCount: 1` in `contents/data.yaml` when a repository should require an external reviewer. `repo-config` enables this.
 
 The `repo-config` repository also requires these CI checks on `master`:
 
