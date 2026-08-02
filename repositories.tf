@@ -26,6 +26,7 @@ locals {
     "pnpm/action-setup@*",
     "release-drafter/release-drafter@*",
     "stefanprodan/helm-gh-pages@*",
+    "swatinem/rust-cache@*",
     "tchoupinax/repo-config@*",
   ]
 }
