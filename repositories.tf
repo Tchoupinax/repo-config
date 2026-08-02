@@ -8,6 +8,7 @@ locals {
 
   allowed_action_patterns = [
     "Tchoupinax/pull-request-labeler@*",
+    "actions-rust-lang/setup-rust-toolchain@*",
     "ahmadnassri/action-terraform-report@*",
     "docker/build-push-action@*",
     "docker/login-action@*",
