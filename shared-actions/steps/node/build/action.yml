@@ -16,7 +16,7 @@ inputs:
     description: "Node.js version to use"
   pnpmVersion:
     required: false
-    description: "PNPM version to use (optional; step also runs when pnpm-lock.yaml is present)"
+    description: "PNPM version to use (optional; also installed when pnpm-lock.yaml or packageManager is present)"
   workingDirectory:
     required: false
     default: "."
@@ -42,21 +42,42 @@ runs:
     with:
       node-version: ${{ inputs.nodeVersion }}
 
-  - name: Detect pnpm lockfile
+  - name: Detect pnpm
     id: pnpm
     run: |
-      if [ -f "${{ inputs.workingDirectory }}/pnpm-lock.yaml" ]; then
-        echo "exists=true" >> $GITHUB_OUTPUT
-      else
-        echo "exists=false" >> $GITHUB_OUTPUT
+      dir="${{ inputs.workingDirectory }}"
+      needed=false
+      has_package_manager=false
+      if [ -f "$dir/pnpm-lock.yaml" ]; then
+        needed=true
       fi
+      if [ -f "$dir/package.json" ] && grep -qE '"packageManager"[[:space:]]*:[[:space:]]*"pnpm@' "$dir/package.json"; then
+        needed=true
+        has_package_manager=true
+      fi
+      echo "needed=$needed" >> $GITHUB_OUTPUT
+      echo "has_package_manager=$has_package_manager" >> $GITHUB_OUTPUT
     shell: bash
 
   - name: Setup PNPM
-    if: inputs.pnpmVersion != '' || steps.pnpm.outputs.exists == 'true'
+    if: inputs.pnpmVersion != ''
     uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
     with:
-      version: ${{ inputs.pnpmVersion && inputs.pnpmVersion || '' }}
+      version: ${{ inputs.pnpmVersion }}
+      package_json_file: ${{ inputs.workingDirectory }}/package.json
+
+  - name: Setup PNPM from packageManager
+    if: inputs.pnpmVersion == '' && steps.pnpm.outputs.needed == 'true' && steps.pnpm.outputs.has_package_manager == 'true'
+    uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
+    with:
+      package_json_file: ${{ inputs.workingDirectory }}/package.json
+
+  - name: Setup PNPM from lockfile
+    if: inputs.pnpmVersion == '' && steps.pnpm.outputs.needed == 'true' && steps.pnpm.outputs.has_package_manager == 'false'
+    uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
+    with:
+      version: "10"
+      package_json_file: ${{ inputs.workingDirectory }}/package.json
 
   - name: Install package manager handler
     run: npm i -g @antfu/ni@30.1.0 --force

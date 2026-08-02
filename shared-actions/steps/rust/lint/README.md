@@ -1,7 +1,7 @@
 <!-- action-docs-all source="action.yml" project="tchoupinax/repo-config" version="v0" -->
 ## Description
 
-Build rust application
+Lint rust codebase
 
 ## Inputs
 
