@@ -61,20 +61,20 @@ runs:
 
   - name: Setup PNPM
     if: inputs.pnpmVersion != ''
-    uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
+    uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
     with:
       version: ${{ inputs.pnpmVersion }}
       package_json_file: ${{ inputs.workingDirectory }}/package.json
 
   - name: Setup PNPM from packageManager
     if: inputs.pnpmVersion == '' && steps.pnpm.outputs.needed == 'true' && steps.pnpm.outputs.has_package_manager == 'true'
-    uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
+    uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
     with:
       package_json_file: ${{ inputs.workingDirectory }}/package.json
 
   - name: Setup PNPM from lockfile
     if: inputs.pnpmVersion == '' && steps.pnpm.outputs.needed == 'true' && steps.pnpm.outputs.has_package_manager == 'false'
-    uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
+    uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
     with:
       version: "10"
       package_json_file: ${{ inputs.workingDirectory }}/package.json
