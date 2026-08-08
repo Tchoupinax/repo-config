@@ -76,7 +76,7 @@ runs:
     if: inputs.pnpmVersion == '' && steps.pnpm.outputs.needed == 'true' && steps.pnpm.outputs.has_package_manager == 'false'
     uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
     with:
-      version: "10"
+      version: "11"
       package_json_file: ${{ inputs.workingDirectory }}/package.json
 
   - name: Install package manager handler
