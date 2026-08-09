@@ -10,6 +10,10 @@ inputs:
     required: false
     default: "true"
     description: "Whether to checkout the repository (set to false if already done in a previous step)"
+  configName:
+    required: false
+    default: "release-drafter.yml"
+    description: Release-drafter config file name (resolved under .github/ when loaded from the repository)
   privateKey:
     required: false
     default: ""
@@ -63,11 +67,15 @@ runs:
 
   - if: inputs.serverHost != ''
     uses: release-drafter/release-drafter@34d80673e067bdc0c24568d3af899c216adcfaa9 # v7.7.0
+    with:
+      config-name: ${{ inputs.checkout == 'true' && format('file:{0}', inputs.configName) || inputs.configName }}
     env:
       GITHUB_TOKEN: ${{ inputs.token || steps.app-token.outputs.token }}
       GHE_HOST: ${{ steps.server-host.outputs.value }}
 
   - if: inputs.serverHost == ''
     uses: release-drafter/release-drafter@34d80673e067bdc0c24568d3af899c216adcfaa9 # v7.7.0
+    with:
+      config-name: ${{ inputs.checkout == 'true' && format('file:{0}', inputs.configName) || inputs.configName }}
     env:
       GITHUB_TOKEN: ${{ inputs.token || steps.app-token.outputs.token }}
