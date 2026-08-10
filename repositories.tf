@@ -23,6 +23,7 @@ locals {
     "helm/chart-testing-action@*",
     "helm/kind-action@*",
     "mislav/bump-homebrew-formula-action@*",
+    "mlugg/setup-zig@v2",
     "pnpm/action-setup@*",
     "release-drafter/release-drafter@*",
     "stefanprodan/helm-gh-pages@*",
