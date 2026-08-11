@@ -16,6 +16,7 @@ locals {
     "docker/setup-buildx-action@*",
     "docker/setup-qemu-action@*",
     "dorny/paths-filter@*",
+    "dtolnay/rust-toolchain@*",
     "fuxingloh/multi-labeler@*",
     "golangci/golangci-lint-action@*",
     "goreleaser/goreleaser-action@*",
@@ -28,6 +29,7 @@ locals {
     "release-drafter/release-drafter@*",
     "stefanprodan/helm-gh-pages@*",
     "swatinem/rust-cache@*",
+    "taiki-e/install-action@v2",
     "tchoupinax/repo-config@*",
   ]
 }
