@@ -12,7 +12,7 @@ inputs:
     description: "Specify what is the command to lint"
   nodeVersion:
     required: false
-    default: "25"
+    default: "26"
     description: "Node.js version to use"
   pnpmVersion:
     required: false
@@ -52,15 +52,36 @@ runs:
       dir="${{ inputs.workingDirectory }}"
       needed=false
       has_package_manager=false
+      pnpm_package_json=""
+      install_directory="$dir"
+
       if [ -f "$dir/pnpm-lock.yaml" ]; then
         needed=true
+        pnpm_package_json="$dir/package.json"
       fi
+
+      # pnpm workspace: lockfile and packageManager often live at the repo root.
+      if [ -f "pnpm-lock.yaml" ] && [ "$dir" != "." ]; then
+        needed=true
+        install_directory="."
+        pnpm_package_json="package.json"
+      fi
+
       if [ -f "$dir/package.json" ] && grep -qE '"packageManager"[[:space:]]*:[[:space:]]*"pnpm@' "$dir/package.json"; then
         needed=true
         has_package_manager=true
+        pnpm_package_json="$dir/package.json"
       fi
+
+      if [ "$needed" = true ] && [ -z "$pnpm_package_json" ] && [ -f "package.json" ] && grep -qE '"packageManager"[[:space:]]*:[[:space:]]*"pnpm@' "package.json"; then
+        has_package_manager=true
+        pnpm_package_json="package.json"
+      fi
+
       echo "needed=$needed" >> $GITHUB_OUTPUT
       echo "has_package_manager=$has_package_manager" >> $GITHUB_OUTPUT
+      echo "pnpm_package_json=$pnpm_package_json" >> $GITHUB_OUTPUT
+      echo "install_directory=$install_directory" >> $GITHUB_OUTPUT
     shell: bash
 
   - name: Setup PNPM
@@ -68,20 +89,19 @@ runs:
     uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
     with:
       version: ${{ inputs.pnpmVersion }}
-      package_json_file: ${{ inputs.workingDirectory }}/package.json
+      package_json_file: ${{ steps.pnpm.outputs.pnpm_package_json != '' && steps.pnpm.outputs.pnpm_package_json || format('{0}/package.json', inputs.workingDirectory) }}
 
   - name: Setup PNPM from packageManager
     if: inputs.pnpmVersion == '' && steps.pnpm.outputs.needed == 'true' && steps.pnpm.outputs.has_package_manager == 'true'
     uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
     with:
-      package_json_file: ${{ inputs.workingDirectory }}/package.json
+      package_json_file: ${{ steps.pnpm.outputs.pnpm_package_json }}
 
   - name: Setup PNPM from lockfile
     if: inputs.pnpmVersion == '' && steps.pnpm.outputs.needed == 'true' && steps.pnpm.outputs.has_package_manager == 'false'
     uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
     with:
-      version: "11"
-      package_json_file: ${{ inputs.workingDirectory }}/package.json
+      package_json_file: ${{ steps.pnpm.outputs.pnpm_package_json != '' && steps.pnpm.outputs.pnpm_package_json || format('{0}/package.json', inputs.workingDirectory) }}
 
   - name: Install package manager handler
     run: npm i -g @antfu/ni@30.1.0 --force
@@ -90,7 +110,7 @@ runs:
   - name: Install dependencies
     run: ni
     shell: bash
-    working-directory: ${{ inputs.workingDirectory }}
+    working-directory: ${{ steps.pnpm.outputs.install_directory != '' && steps.pnpm.outputs.install_directory || inputs.workingDirectory }}
 
   - name: Lint source code
     run: nr ${{ inputs.command }} ${{ inputs.throwOnError == 'false' && '|| true' || '' }}

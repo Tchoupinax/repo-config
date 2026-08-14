@@ -9,7 +9,7 @@ This run lint command for Node.js application
 | --- | --- | --- | --- |
 | `checkout` | <p>Whether to checkout the repository (set to false if already done in a previous step)</p> | `false` | `true` |
 | `command` | <p>Specify what is the command to lint</p> | `false` | `lint` |
-| `nodeVersion` | <p>Node.js version to use</p> | `false` | `25` |
+| `nodeVersion` | <p>Node.js version to use</p> | `false` | `26` |
 | `pnpmVersion` | <p>PNPM version to use (optional; also installed when pnpm-lock.yaml or packageManager is present)</p> | `false` | `""` |
 | `throwOnError` | <p>Set to false if error should be silenced</p> | `false` | `true` |
 | `workingDirectory` | <p>Directory to run lint commands in</p> | `false` | `.` |
@@ -40,7 +40,7 @@ This action is a `composite` action.
     # Node.js version to use
     #
     # Required: false
-    # Default: 25
+    # Default: 26
 
     pnpmVersion:
     # PNPM version to use (optional; also installed when pnpm-lock.yaml or packageManager is present)

@@ -9,7 +9,7 @@ When a pull request is merged, this runs on main branch and analyze labels to pr
 | --- | --- | --- | --- |
 | `appId` | <p>ID of the GitHub app (used when token is empty)</p> | `false` | `""` |
 | `checkout` | <p>Whether to checkout the repository (set to false if already done in a previous step)</p> | `false` | `true` |
-| `configName` | <p>Release-drafter config file name (resolved under <code>.github/</code> when loaded from the repository)</p> | `false` | `release-drafter.yml` |
+| `configName` | <p>Release-drafter config file name (resolved under .github/ when loaded from the repository)</p> | `false` | `release-drafter.yml` |
 | `privateKey` | <p>Private key of the GitHub app (used when token is empty)</p> | `false` | `""` |
 | `serverHost` | <p>API hostname or URL for release-drafter GHE<em>HOST (e.g. git.example.com or gitea.server</em>url)</p> | `false` | `""` |
 | `token` | <p>Repository token for checkout and release-drafter; uses GitHub app when empty</p> | `false` | `""` |

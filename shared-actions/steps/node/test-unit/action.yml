@@ -12,7 +12,7 @@ inputs:
     description: "Specify what is the command to run tests"
   nodeVersion:
     required: false
-    default: "25"
+    default: "26"
     description: "Node.js version to use"
   pnpmVersion:
     required: false

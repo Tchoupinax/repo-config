@@ -8,12 +8,19 @@ Build a multi-architecture Docker image and push it to container registries.
 | name | description | required | default |
 | --- | --- | --- | --- |
 | `buildArgs` | <p>Additional build args for docker/build-push-action (newline-separated KEY=VALUE)</p> | `false` | `""` |
+| `buildkitCacheKey` | <p>actions/cache key when buildkitCacheMap is set</p> | `false` | `""` |
+| `buildkitCacheMap` | <p>JSON cache-map for reproducible-containers/buildkit-cache-dance (persists RUN --mount=type=cache)</p> | `false` | `""` |
+| `buildkitCachePaths` | <p>Newline-separated paths cached before buildkit-cache-dance</p> | `false` | `""` |
+| `buildkitCacheRestoreKeys` | <p>actions/cache restore-keys when buildkitCacheMap is set</p> | `false` | `""` |
+| `cacheFrom` | <p>cache-from for docker/build-push-action (e.g. type=registry,ref=ghcr.io/owner/app:buildcache)</p> | `false` | `""` |
+| `cacheTo` | <p>cache-to for docker/build-push-action (e.g. type=registry,ref=ghcr.io/owner/app:buildcache,mode=max)</p> | `false` | `""` |
 | `checkout` | <p>Whether to checkout the repository (set to false if already done in a previous step)</p> | `false` | `true` |
 | `context` | <p>Docker build context, relative to workingDirectory</p> | `false` | `.` |
 | `dockerhubToken` | <p>Docker Hub access token or password (required if enableDockerHub is true)</p> | `false` | `""` |
 | `dockerhubUsername` | <p>Docker Hub username (required if enableDockerHub is true)</p> | `false` | `""` |
 | `enableDockerHub` | <p>Whether to log in to and push images to Docker Hub</p> | `false` | `false` |
 | `enableGhcr` | <p>Whether to log in to and push images to GitHub Container Registry (ghcr.io)</p> | `false` | `true` |
+| `enableQemu` | <p>Set to false when the Dockerfile cross-compiles natively (e.g. cargo-zigbuild) and QEMU is not needed</p> | `false` | `true` |
 | `file` | <p>Path to Dockerfile, relative to the build context (optional)</p> | `false` | `""` |
 | `flavor` | <p>Flavor configuration passed to docker/metadata-action (e.g. latest=true)</p> | `false` | `latest=true` |
 | `images` | <p>Newline-separated list of image names to tag and publish (e.g.: ghcr.io/owner/app owner/app)</p> | `true` | `""` |
@@ -34,6 +41,42 @@ This action is a `composite` action.
   with:
     buildArgs:
     # Additional build args for docker/build-push-action (newline-separated KEY=VALUE)
+    #
+    # Required: false
+    # Default: ""
+
+    buildkitCacheKey:
+    # actions/cache key when buildkitCacheMap is set
+    #
+    # Required: false
+    # Default: ""
+
+    buildkitCacheMap:
+    # JSON cache-map for reproducible-containers/buildkit-cache-dance (persists RUN --mount=type=cache)
+    #
+    # Required: false
+    # Default: ""
+
+    buildkitCachePaths:
+    # Newline-separated paths cached before buildkit-cache-dance
+    #
+    # Required: false
+    # Default: ""
+
+    buildkitCacheRestoreKeys:
+    # actions/cache restore-keys when buildkitCacheMap is set
+    #
+    # Required: false
+    # Default: ""
+
+    cacheFrom:
+    # cache-from for docker/build-push-action (e.g. type=registry,ref=ghcr.io/owner/app:buildcache)
+    #
+    # Required: false
+    # Default: ""
+
+    cacheTo:
+    # cache-to for docker/build-push-action (e.g. type=registry,ref=ghcr.io/owner/app:buildcache,mode=max)
     #
     # Required: false
     # Default: ""
@@ -70,6 +113,12 @@ This action is a `composite` action.
 
     enableGhcr:
     # Whether to log in to and push images to GitHub Container Registry (ghcr.io)
+    #
+    # Required: false
+    # Default: true
+
+    enableQemu:
+    # Set to false when the Dockerfile cross-compiles natively (e.g. cargo-zigbuild) and QEMU is not needed
     #
     # Required: false
     # Default: true

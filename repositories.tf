@@ -27,6 +27,7 @@ locals {
     "mlugg/setup-zig@v2",
     "pnpm/action-setup@*",
     "release-drafter/release-drafter@*",
+    "reproducible-containers/buildkit-cache-dance@*",
     "stefanprodan/helm-gh-pages@*",
     "swatinem/rust-cache@*",
     "taiki-e/install-action@v2",
