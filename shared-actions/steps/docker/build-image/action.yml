@@ -135,7 +135,7 @@ runs:
 
   - name: Inject BuildKit mount cache
     if: inputs.buildkitCacheMap != ''
-    uses: reproducible-containers/buildkit-cache-dance@v3.1.2
+    uses: reproducible-containers/buildkit-cache-dance@v3.4.0
     with:
       cache-map: ${{ inputs.buildkitCacheMap }}
 
