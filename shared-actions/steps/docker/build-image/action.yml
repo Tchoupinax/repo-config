@@ -127,7 +127,7 @@ runs:
 
   - name: Cache BuildKit mount directories
     if: inputs.buildkitCacheMap != ''
-    uses: actions/cache@v4
+    uses: actions/cache@v6
     with:
       path: ${{ inputs.buildkitCachePaths }}
       key: ${{ inputs.buildkitCacheKey }}
