@@ -18,6 +18,7 @@ locals {
     "dorny/paths-filter@*",
     "dtolnay/rust-toolchain@*",
     "fuxingloh/multi-labeler@*",
+    "gitleaks/gitleaks-action@*",
     "golangci/golangci-lint-action@*",
     "goreleaser/goreleaser-action@*",
     "hashicorp/setup-terraform@*",
