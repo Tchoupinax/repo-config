@@ -10,6 +10,7 @@ locals {
     "Tchoupinax/pull-request-labeler@*",
     "actions-rust-lang/setup-rust-toolchain@*",
     "ahmadnassri/action-terraform-report@*",
+    "bsord/helm-push@*",
     "docker/build-push-action@*",
     "docker/login-action@*",
     "docker/metadata-action@*",
