@@ -84,24 +84,20 @@ runs:
       echo "install_directory=$install_directory" >> $GITHUB_OUTPUT
     shell: bash
 
-  - name: Setup PNPM
-    if: inputs.pnpmVersion != ''
-    uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
+  - name: Setup pnpm
+    if: steps.pnpm.outputs.needed == 'true' && inputs.pnpmVersion != ''
+    uses: pnpm/setup@c9883cc79df532ad1a7b81bf9ab944ceb090d65c # v2.0.0
     with:
       version: ${{ inputs.pnpmVersion }}
-      package_json_file: ${{ steps.pnpm.outputs.pnpm_package_json != '' && steps.pnpm.outputs.pnpm_package_json || format('{0}/package.json', inputs.workingDirectory) }}
+      package-json-file: ${{ steps.pnpm.outputs.pnpm_package_json != '' && steps.pnpm.outputs.pnpm_package_json || 'package.json' }}
+      install: false
 
-  - name: Setup PNPM from packageManager
-    if: inputs.pnpmVersion == '' && steps.pnpm.outputs.needed == 'true' && steps.pnpm.outputs.has_package_manager == 'true'
-    uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
+  - name: Setup pnpm from packageManager
+    if: steps.pnpm.outputs.needed == 'true' && inputs.pnpmVersion == ''
+    uses: pnpm/setup@c9883cc79df532ad1a7b81bf9ab944ceb090d65c # v2.0.0
     with:
-      package_json_file: ${{ steps.pnpm.outputs.pnpm_package_json }}
-
-  - name: Setup PNPM from lockfile
-    if: inputs.pnpmVersion == '' && steps.pnpm.outputs.needed == 'true' && steps.pnpm.outputs.has_package_manager == 'false'
-    uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
-    with:
-      package_json_file: ${{ steps.pnpm.outputs.pnpm_package_json != '' && steps.pnpm.outputs.pnpm_package_json || format('{0}/package.json', inputs.workingDirectory) }}
+      package-json-file: ${{ steps.pnpm.outputs.pnpm_package_json != '' && steps.pnpm.outputs.pnpm_package_json || 'package.json' }}
+      install: false
 
   - name: Install package manager handler
     run: npm i -g @antfu/ni@30.1.0 --force

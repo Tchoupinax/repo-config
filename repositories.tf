@@ -28,6 +28,7 @@ locals {
     "mislav/bump-homebrew-formula-action@*",
     "mlugg/setup-zig@v2",
     "pnpm/action-setup@*",
+    "pnpm/setup@*",
     "release-drafter/release-drafter@*",
     "reproducible-containers/buildkit-cache-dance@*",
     "stefanprodan/helm-gh-pages@*",
