@@ -61,7 +61,7 @@ runs:
 
   - name: Setup pnpm
     if: steps.pnpm.outputs.needed == 'true' && inputs.pnpmVersion != ''
-    uses: pnpm/setup@84cb39b217b10273981911c288cd62326dc7c6d2 # v2.0.2
+    uses: pnpm/setup@703c52620218391530e48b9e8870d5c0082e1b9b # v2.1.0
     with:
       version: ${{ inputs.pnpmVersion }}
       package-json-file: ${{ inputs.workingDirectory }}/package.json
@@ -69,7 +69,7 @@ runs:
 
   - name: Setup pnpm from packageManager
     if: steps.pnpm.outputs.needed == 'true' && inputs.pnpmVersion == ''
-    uses: pnpm/setup@84cb39b217b10273981911c288cd62326dc7c6d2 # v2.0.2
+    uses: pnpm/setup@703c52620218391530e48b9e8870d5c0082e1b9b # v2.1.0
     with:
       package-json-file: ${{ inputs.workingDirectory }}/package.json
       install: false
