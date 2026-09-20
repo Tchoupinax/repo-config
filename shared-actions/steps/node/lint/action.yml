@@ -84,20 +84,22 @@ runs:
       echo "install_directory=$install_directory" >> $GITHUB_OUTPUT
     shell: bash
 
+  # pnpm/setup calls api.github.com; Gitea tokens get 401. Corepack reads packageManager locally.
   - name: Setup pnpm
-    if: steps.pnpm.outputs.needed == 'true' && inputs.pnpmVersion != ''
-    uses: pnpm/setup@703c52620218391530e48b9e8870d5c0082e1b9b # v2.1.0
-    with:
-      version: ${{ inputs.pnpmVersion }}
-      package-json-file: ${{ steps.pnpm.outputs.pnpm_package_json != '' && steps.pnpm.outputs.pnpm_package_json || 'package.json' }}
-      install: false
-
-  - name: Setup pnpm from packageManager
-    if: steps.pnpm.outputs.needed == 'true' && inputs.pnpmVersion == ''
-    uses: pnpm/setup@703c52620218391530e48b9e8870d5c0082e1b9b # v2.1.0
-    with:
-      package-json-file: ${{ steps.pnpm.outputs.pnpm_package_json != '' && steps.pnpm.outputs.pnpm_package_json || 'package.json' }}
-      install: false
+    if: steps.pnpm.outputs.needed == 'true'
+    run: |
+      set -euo pipefail
+      if [ -n "${{ inputs.pnpmVersion }}" ]; then
+        spec="pnpm@${{ inputs.pnpmVersion }}"
+      else
+        pkg_json="${{ steps.pnpm.outputs.pnpm_package_json }}"
+        pkg_json="${pkg_json:-package.json}"
+        spec="$(node -e "const p=require('./' + process.argv[1]); if (!p.packageManager) { console.error('packageManager missing in ' + process.argv[1]); process.exit(1) } console.log(p.packageManager)" "$pkg_json")"
+      fi
+      corepack enable
+      corepack prepare "$spec" --activate
+      pnpm --version
+    shell: bash
 
   - name: Install package manager handler
     run: npm i -g @antfu/ni@30.1.0 --force
