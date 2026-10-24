@@ -71,6 +71,10 @@ runs:
         pkg_json="$dir/package.json"
         spec="$(node -e "const p=require('./' + process.argv[1]); if (!p.packageManager) { console.error('packageManager missing in ' + process.argv[1]); process.exit(1) } console.log(p.packageManager)" "$pkg_json")"
       fi
+      # Node 25+ no longer bundles corepack; install it when missing.
+      if ! command -v corepack >/dev/null 2>&1; then
+        npm i -g corepack@latest
+      fi
       corepack enable
       corepack prepare "$spec" --activate
       pnpm --version
