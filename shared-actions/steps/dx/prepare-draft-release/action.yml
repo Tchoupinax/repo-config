@@ -59,14 +59,14 @@ runs:
       echo "value=${host}" >> "$GITHUB_OUTPUT"
 
   - if: inputs.token == ''
-    uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+    uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
     id: app-token
     with:
       client-id: ${{ inputs.appId }}
       private-key: ${{ inputs.privateKey }}
 
   - if: inputs.serverHost != ''
-    uses: release-drafter/release-drafter@72967cdc98ddd3160f1fc3dff619de365e137dd0 # v7.9.0
+    uses: release-drafter/release-drafter@978bb0b30c5ee8cdd332ced253758157150d43f0 # v7.10.0
     with:
       config-name: ${{ inputs.checkout == 'true' && format('file:{0}', inputs.configName) || inputs.configName }}
     env:
@@ -74,7 +74,7 @@ runs:
       GHE_HOST: ${{ steps.server-host.outputs.value }}
 
   - if: inputs.serverHost == ''
-    uses: release-drafter/release-drafter@72967cdc98ddd3160f1fc3dff619de365e137dd0 # v7.9.0
+    uses: release-drafter/release-drafter@978bb0b30c5ee8cdd332ced253758157150d43f0 # v7.10.0
     with:
       config-name: ${{ inputs.checkout == 'true' && format('file:{0}', inputs.configName) || inputs.configName }}
     env:
