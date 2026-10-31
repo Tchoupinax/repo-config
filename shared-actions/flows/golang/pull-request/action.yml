@@ -17,17 +17,17 @@ runs:
   using: "composite"
   steps:
     - name: Check code quality 🫆
-      uses: tchoupinax/repo-config/shared-actions/golang/golangci@935fd491152f48048fa9ff56c80d5deeca15f5d1 # v0.9.5
+      uses: tchoupinax/repo-config/shared-actions/golang/golangci@ef26c526304212d80c2fcfa733bc78c2e5844c7b # v0.9.6
       with:
         workingDirectory: ${{ inputs.workingDirectory }}
 
     - name: Check build success 🦫
-      uses: tchoupinax/repo-config/shared-actions/golang/goreleaser-build-only@935fd491152f48048fa9ff56c80d5deeca15f5d1 # v0.9.5
+      uses: tchoupinax/repo-config/shared-actions/golang/goreleaser-build-only@ef26c526304212d80c2fcfa733bc78c2e5844c7b # v0.9.6
       with:
         workingDirectory: ${{ inputs.workingDirectory }}
 
     - name: Autodetect labels 🔍
-      uses: tchoupinax/repo-config/shared-actions/dx/automatically-apply-labels@935fd491152f48048fa9ff56c80d5deeca15f5d1 # v0.9.5
+      uses: tchoupinax/repo-config/shared-actions/dx/automatically-apply-labels@ef26c526304212d80c2fcfa733bc78c2e5844c7b # v0.9.6
       with:
         app-id: ${{ inputs.appId }}
         private-key: ${{ inputs.privateKey }}
