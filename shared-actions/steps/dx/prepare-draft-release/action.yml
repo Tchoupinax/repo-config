@@ -86,9 +86,7 @@ runs:
     id: gitea-draft
     name: Draft release (Gitea REST)
     shell: bash
-    run: |
-      python3 -m pip install --quiet --disable-pip-version-check pyyaml
-      python3 "${{ github.action_path }}/draft_release_gitea.py"
+    run: bash "${{ github.action_path }}/draft_release_gitea.sh"
     env:
       GITEA_TOKEN: ${{ inputs.token || steps.app-token.outputs.token }}
       GITEA_HOST: ${{ steps.server-host.outputs.value }}
