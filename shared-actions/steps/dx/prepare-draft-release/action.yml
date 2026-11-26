@@ -31,6 +31,20 @@ inputs:
     default: "."
     description: "Reserved for future use; currently unused"
 
+outputs:
+  resolved-version:
+    description: "Next resolved version (Gitea path only)"
+    value: ${{ steps.gitea-draft.outputs.resolved-version }}
+  tag-name:
+    description: "Next release tag (Gitea path only)"
+    value: ${{ steps.gitea-draft.outputs.tag-name }}
+  bump:
+    description: "Resolved semver bump: major/minor/patch (Gitea path only)"
+    value: ${{ steps.gitea-draft.outputs.bump }}
+  labels:
+    description: "Comma-separated labels seen on included PRs (Gitea path only)"
+    value: ${{ steps.gitea-draft.outputs.labels }}
+
 runs:
   using: "composite"
   steps:
@@ -65,14 +79,25 @@ runs:
       client-id: ${{ inputs.appId }}
       private-key: ${{ inputs.privateKey }}
 
+  # Gitea exposes no GraphQL API, so release-drafter fails with "404 page not
+  # found" when it tries to find commits between refs. On a Gitea server we draft
+  # the release through Gitea's REST API instead.
   - if: inputs.serverHost != ''
-    uses: release-drafter/release-drafter@d1a19e60e81a7e650d00a7de9277f87e439117ea # v7.11.0
-    with:
-      config-name: ${{ inputs.checkout == 'true' && format('file:{0}', inputs.configName) || inputs.configName }}
+    id: gitea-draft
+    name: Draft release (Gitea REST)
+    shell: bash
+    run: |
+      python3 -m pip install --quiet --disable-pip-version-check pyyaml
+      python3 "${{ github.action_path }}/draft_release_gitea.py"
     env:
-      GITHUB_TOKEN: ${{ inputs.token || steps.app-token.outputs.token }}
-      GHE_HOST: ${{ steps.server-host.outputs.value }}
+      GITEA_TOKEN: ${{ inputs.token || steps.app-token.outputs.token }}
+      GITEA_HOST: ${{ steps.server-host.outputs.value }}
+      GITHUB_REPOSITORY: ${{ github.repository }}
+      GITHUB_REF_NAME: ${{ github.ref_name }}
+      CONFIG_PATH: .github/${{ inputs.configName }}
 
+  # On GitHub (no serverHost) keep using release-drafter, which relies on the
+  # GitHub GraphQL API.
   - if: inputs.serverHost == ''
     uses: release-drafter/release-drafter@d1a19e60e81a7e650d00a7de9277f87e439117ea # v7.11.0
     with:
