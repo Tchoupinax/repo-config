@@ -67,8 +67,6 @@ runs:
     shell: bash
     run: |
       host="${{ inputs.serverHost }}"
-      host="${host#https://}"
-      host="${host#http://}"
       host="${host%/}"
       echo "value=${host}" >> "$GITHUB_OUTPUT"
 
